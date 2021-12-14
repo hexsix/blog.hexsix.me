@@ -5,11 +5,13 @@ author:     喵小六
 tags:       ['编程', 'git']
 ---
 
-> 公司电脑的 git 默认设置了自己的名字拼音和公司邮箱作为 `user.name` 和 `user.email`
+> 公司电脑的 git 默认设置了自己的名字拼音和公司邮箱作为 `user.name` 和 `user.email`，
 >
-> 结果写这个博客的时候忘了改设置，把错误的名字邮箱提交到 github 上了
+> 结果写这个博客的时候忘了改设置，把错误的名字邮箱提交到 github 上了。
 
 要解决这个问题，用到的命令是 `git rebase`
+
+<!--more-->
 
 ```bash
 $ git rebase [-i | --interactive] <start_commit_id> <end_commit_id> [--root]
