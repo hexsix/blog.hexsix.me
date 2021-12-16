@@ -1,4 +1,4 @@
----
+<!-- ---
 title: "My Trip to Scotland"
 date: 2017-11-01T18:01:26+01:00
 
@@ -18,4 +18,4 @@ On our last day, we visited Dover Castle - an ancient castle complex. The Romans
 Best vacation ever!
 
 *Yeah, I could write a whole book about this fantastic journey... <br>
-But we're here for the cool [__Bilberry Theme__](https://github.com/Lednerb/bilberry-hugo-theme) ;-)*
+But we're here for the cool [__Bilberry Theme__](https://github.com/Lednerb/bilberry-hugo-theme) ;-)* -->
