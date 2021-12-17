@@ -1,9 +1,10 @@
 ---
 title: "君の知らない物語"
 date: 2016-05-24T17:00:00+08:00
+author: supercell
 
 categories: ['Music']
-tags: ['Anisong', 'Music', 'ACG']
+tags: ['Anisong', 'Music', 'supercell']
 icon: "fa-music"
 
 # Set your video id for

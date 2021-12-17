@@ -2,7 +2,8 @@
 title: "Extankoubon - 每日单行本"
 date: 2021-08-01T01:28:00+08:00
 
-tags: ['tankoubon', 'exhentai']
+categories: ['Other']
+tags: ['exhentai', 'telegram']
 
 # Set your external url
 link: "https://t.me/extankoubon"

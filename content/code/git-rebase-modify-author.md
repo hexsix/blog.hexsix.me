@@ -2,7 +2,8 @@
 title:      git rebase 修改 author
 date:       2021-05-14T10:34:00+08:00
 author:     喵小六
-tags:       ['编程', 'git']
+categories: ['Study']
+tags:       ['CS', 'git']
 ---
 
 > 公司电脑的 git 默认设置了自己的名字拼音和公司邮箱作为 `user.name` 和 `user.email`，
