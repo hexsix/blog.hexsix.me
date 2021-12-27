@@ -10,6 +10,8 @@
 
 Based on [HUGO](https://github.com/gohugoio/hugo)
 
-Theme: [bilberry](https://github.com/Lednerb/bilberry-hugo-theme)
+Theme by [bilberry](https://github.com/Lednerb/bilberry-hugo-theme)
+
+Comments enabled by [giscus](https://github.com/giscus/giscus)
 
 </div>
