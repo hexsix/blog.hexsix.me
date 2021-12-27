@@ -1,13 +1,15 @@
-# Blog.hexsix.me
+<p align="center">
+  <a href="https://blog.hexsix.me"><img src="https://cdn.jsdelivr.net/gh/hexsix/images@master/bubble-favicon.png" width="192" height="192" alt="bubble"></a>
+</p>
 
-> 访问我的博客：[https://blog.hexsix.me](https://blog.hexsix.me)
+<div align="center">
 
-## 写作计划（TODO List）
+# 小六家的藏宝图 | Bubble
 
-- [x] 内链我投稿的部分 bilibili 视频到博客内
-- [ ] 我的 Arcaea PTT 成长轨迹（不想用内建的 md 写，看看能不能 DIY 一个页面）
-- [ ] 丰富我的 about 页面
-- [ ] 自定义 404 页面
-- [ ] 启用评论
-- [ ] 其他想写的，比如 archlinux 的常用调教
-- [ ] 我的雀魂役满合集（其实根本没几次）
+✨ [blog.hexsix.me](https://blog.hexsix.me) ✨
+
+Based on [HUGO](https://github.com/gohugoio/hugo)
+
+Theme: [bilberry](https://github.com/Lednerb/bilberry-hugo-theme)
+
+</div>
