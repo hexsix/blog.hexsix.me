@@ -45,17 +45,17 @@ disqusShortname = ""
   # commentoJsURL = "https://commento.lednerb.de/js/commento.js"
 
   # Enable / Disable Giscus comments
-  giscus             = false
+  giscus             = true
   giscusJsUrl        = "https://giscus.app/client.js"
-  giscusRepository   = "[ENTER REPO HERE]"
-  giscusRepositoryId = "[ENTER REPO ID HERE]"
+  giscusRepository   = "hexsix/blog.hexsix.me"
+  giscusRepositoryId = "R_kgDOGh4vHw"
   giscusMapping      = "pathname"
-  giscusCategory     = "[ENTER CATEGORY NAME HERE]"
-  giscusCategoryId   = "[ENTER CATEGORY ID HERE]"
+  giscusCategory     = "Blog Comments"
+  giscusCategoryId   = "DIC_kwDOGh4vH84CAcFP"
   giscusTheme        = "light"
   giscusReactions    = "1"
   giscusEmitMetadata = "0"
-  giscusLanguage     = "en"
+  giscusLanguage     = "zh-CN"
   giscusCrossOrigin  = "anonymous"
 
   # Enable / Disable Utterances comments
