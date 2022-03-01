@@ -1,0 +1,21 @@
+{{ define "main" }}
+
+<div class="content">
+    <div class="article-wrapper u-cf single">
+        <a class="bubble" href="{{ "/" | relLangURL}}">
+            <i class="fa fa-fw fa-exclamation-triangle"></i>
+        </a>
+
+        <article class="error404 article">
+            <div class="content">
+                <h2>啊咧</h2>
+                <img height="250" width="250" src="404.jpg" />
+                <p></p>
+                <p>你点了不该点的地方吧...</p>
+                <p><strong>页面不见了！</strong></p>
+                <p>在底下选择你想看的，或者回到<a href="{{ "/" | relLangURL}}">主页</a>。</p>
+            </div>
+        </article>
+    </div>
+</div>
+{{ end }}
