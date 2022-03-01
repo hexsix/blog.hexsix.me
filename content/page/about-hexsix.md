@@ -9,18 +9,4 @@ excludeFromTopNav: false
 showDate: false
 ---
 
-> 下雨了
-> 
-> 我家的猫想妳了
-
-你好，这里是六六
-
-【Github】 https://github.com/hexsix
-
-【Bilibili】 https://space.bilibili.com/7036343
-
-【Bangumi】 https://bgm.tv/user/hexsix
-
-【Steam】 http://steamcommunity.com/id/hexs1x
-
-【Twitter】 https://twitter.com/hexsixology
+{{< about-me-hexsix >}}
