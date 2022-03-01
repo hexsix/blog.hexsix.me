@@ -1,12 +1,11 @@
 <div class="card-container">
     <span class="pro">Lv.16</span>
-    <img class="round" src="https://cdn.jsdelivr.net/gh/cat-milk/Anime-Girls-Holding-Programming-Books@master/C%2B%2B/Sakura_Nene_CPP.jpg" alt="user" />
-    <h3>HEXSIX</h3>
-    <h6>Beijing</h6>
+    <img class="round" src="https://cdn.jsdelivr.net/gh/hexsix/images@master/avatar/goldenglow_220301.jpg" alt="user" height="150"/>
+    <h1 class="name">❄️喵小六🦋</h1>
     <p>下雨了<br />我家的猫想你了<br />可是<br />我没有猫<br />也没有你</p>
     <div class="buttons">
         <a href="https://space.bilibili.com/7036343">
-            <button class="primary">
+            <button class="primary ghost">
                 Bilibili
             </button>
         </a>
@@ -18,7 +17,7 @@
     </div>
     <div class="buttons">
         <a href="https://github.com/hexsix">
-            <button class="primary ghost">
+            <button class="primary">
                 Github
             </button>
         </a>
@@ -38,49 +37,8 @@
     </div>
 </div>
 
-{{/* <footer>
-    <p>
-        Created with <i class="fa fa-heart"></i> by
-        <a target="_blank" href="https://florin-pop.com">Florin Pop</a>
-        - Read how I created this
-        <a target="_blank" href="https://florin-pop.com/blog/2019/04/profile-card-design">here</a>
-        - Design made by
-        <a target="_blank" href="https://dribbble.com/shots/6276930-Profile-Card-UI-Design">Ildiesign</a>
-    </p>
-</footer> */}}
 
 <style type="text/css">
-    @import url('https://fonts.googleapis.com/css?family=Montserrat');
-
-    * {
-        box-sizing: border-box;
-    }
-
-    body {
-        font-family: Montserrat, sans-serif;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-
-        min-height: 100vh;
-        margin: 0;
-    }
-
-    h3 {
-        margin: 10px 0;
-    }
-
-    h6 {
-        margin: 5px 0;
-        text-transform: uppercase;
-    }
-
-    p {
-        font-size: 14px;
-        line-height: 21px;
-    }
 
     .card-container {
         background-color: #231E39;
@@ -107,9 +65,13 @@
     }
 
     .card-container .round {
-        border: 1px solid #03BFCB;
+        border: 3px solid #03BFCB;
         border-radius: 50%;
-        padding: 7px;
+        padding: 0px;
+    }
+
+    .card-container .name {
+        padding: 20px;
     }
 
     button.primary {
@@ -117,9 +79,8 @@
         border: 1px solid #03BFCB;
         border-radius: 3px;
         color: #231E39;
-        font-family: Montserrat, sans-serif;
         font-weight: 500;
-        padding: 10px 25px;
+        padding: 0px 25px;
     }
 
     button.primary.ghost {
@@ -147,30 +108,5 @@
         font-size: 12px;
         margin: 0 7px 7px 0;
         padding: 7px;
-    }
-
-    footer {
-        background-color: #222;
-        color: #fff;
-        font-size: 14px;
-        bottom: 0;
-        position: fixed;
-        left: 0;
-        right: 0;
-        text-align: center;
-        z-index: 999;
-    }
-
-    footer p {
-        margin: 10px 0;
-    }
-
-    footer i {
-        color: red;
-    }
-
-    footer a {
-        color: #3c97bf;
-        text-decoration: none;
     }
 </style>
