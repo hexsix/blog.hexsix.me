@@ -150,7 +150,7 @@ $ sudo firewall-cmd --reload
 
 总之就是用 amce.sh 安装好证书之后 nginx 访问证书遇到 Permission denied
 
-#### 原因
+#### 1.1.原因
 
 原因是 SELinux 在 enforcing mode 下
 
@@ -188,7 +188,7 @@ unconfined_u:object_r:admin_home_t:s0
 
 这就是 permission denied 的原因了
 
-#### 解决办法
+#### 1.2.解决办法
 
 如果你的证书安装在 /etc/nginx 目录下，可以直接修复整个目录的扩展属性
 
@@ -208,7 +208,7 @@ chcon httpd_config_t /path/to/cert
 setenforce 0
 ```
 
-### 启动完 nginx 访问不了 trilium，503 错误
+### 2.启动完 nginx 访问不了 trilium，503 错误
 
 [(13: Permission denied) while connecting to upstream:[nginx]](https://stackoverflow.com/questions/23948527/13-permission-denied-while-connecting-to-upstreamnginx)
 
