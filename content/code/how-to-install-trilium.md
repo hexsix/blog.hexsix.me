@@ -19,6 +19,8 @@ Trilium 真的很好用，我用了两天就爱上了。
 
 <!--more-->
 
+{{< toc >}}
+
 ## 一、安装 Docker
 
 上[官网](https://docs.docker.com/engine/install/centos/)去找到合适的安装教程一步一步走，这里以全新的 CentOS 安装为例

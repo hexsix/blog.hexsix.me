@@ -10,6 +10,8 @@ tags:       ['CS', 'git', 'Github']
 
 <!--more-->
 
+{{< toc >}}
+
 ## 一、设置 token
 
 ### 1.1 生成一个新的 token

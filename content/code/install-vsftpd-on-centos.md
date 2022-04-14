@@ -14,6 +14,8 @@ CentOS 云服务器搭建 FTP 服务，其实就是搭建 FTP 服务了。那么
 
 <!--more-->
 
+{{< toc >}}
+
 ## 一、安装 vsftpd
 
 执行以下命令，安装 vsftpd
