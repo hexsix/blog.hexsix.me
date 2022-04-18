@@ -12,6 +12,8 @@ linux 的二进制版本需要在左侧的 Browse all files 里找到，或者�
 
 <!--more-->
 
+直接复制到 `/usr/local/bin` 目录下，当作安装的软件用
+
 打包者没有静态链接 libpng12 的库，如果报错额外安装一下（需要启用 multilib）
 
 ```bash
