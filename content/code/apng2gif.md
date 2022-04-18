@@ -12,16 +12,28 @@ linux 的二进制版本需要在左侧的 Browse all files 里找到，或者�
 
 <!--more-->
 
-打包者没有静态链接 libpng12 的库，如果报错额外安装一下
+打包者没有静态链接 libpng12 的库，如果报错额外安装一下（需要启用 multilib）
 
 ```bash
-sudo pacman -S libpng12
+sudo pacman -S libpng12 lib32-libpng12 lib32-gcc-libs
 ```
+
+删除 apng
 
 ```sh
 for i in *.png;
 
-  do ./apng2gif "$i" "${i%.png}.gif";rm -f "$i" ;
+  do apng2gif "$i" "${i%.png}.gif";rm -f "$i" ;
+
+done
+```
+
+不删除 apng
+
+```sh
+for i in *.png;
+
+  do apng2gif "$i" "${i%.png}.gif";
 
 done
 ```
