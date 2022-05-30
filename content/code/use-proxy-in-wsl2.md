@@ -44,13 +44,53 @@ installed: /etc/systemd/system/v2ray@.service
 
 不幸的是，WSL 没有 systemd
 
-你可以找一些替代品，或者和我一样，要用代理的时候，运行一下 v2ray 的可执行文件
+你可以找一些替代品，比如 [genie](https://github.com/DamionGans/ubuntu-wsl2-systemd-script) / [
+ubuntu-wsl2-systemd-script](https://github.com/DamionGans/ubuntu-wsl2-systemd-script)
+
+或者和我一样，要用代理的时候，运行一下 v2ray 的可执行文件
 
 ```
 /usr/local/bin/v2ray --config /usr/local/etc/v2ray/config.json
 ```
 
 至于 config.json 怎么配置，这里有大量的样例可供参考，每个人情况都不一样，挑一个适合你的，[https://github.com/v2fly/v2ray-examples](https://github.com/v2fly/v2ray-examples)
+
+这里给出一个例子，会代理除了局域网之外的所有流量（这是 ok 的，因为我们没有设置系统代理，只是用 proxychains 手动转发到监听端口）
+
+```json
+{
+  "inbounds": [{
+    "port": 1089,  // SOCKS 代理端口，在浏览器中需配置代理并指向这个端口
+    "listen": "127.0.0.1",
+    "protocol": "socks",
+    "settings": {
+      "udp": true
+    }
+  }],
+  "outbounds": [{
+    "protocol": "vmess",
+    "settings": {
+      "vnext": [{
+        "address": "server", // 服务器地址，请修改为你自己的服务器 ip 或域名
+        "port": 10086,  // 服务器端口
+        "users": [{ "id": "b831381d-6324-4d53-ad4f-8cda48b30811" }]
+      }]
+    }
+  },{
+    "protocol": "freedom",
+    "tag": "direct",
+    "settings": {}
+  }],
+  "routing": {
+    "domainStrategy": "IPOnDemand",
+    "rules": [{
+      "type": "field",
+      "ip": ["geoip:private"],
+      "outboundTag": "direct"
+    }]
+  }
+}
+```
 
 ## 然后安装 proxychains
 
@@ -71,7 +111,6 @@ quiet_mode
 #proxy_dns
 # 配置 v2ray 端口
 socks5   127.0.0.1 1089
-http     127.0.0.1 8889
 ```
 
 然后在你想运行的命令前加上 proxychains 就好了，比如
@@ -79,7 +118,3 @@ http     127.0.0.1 8889
 ```
 proxychains curl -vv https://google.com/
 ```
-
-> 端口号配置在 /usr/local/etc/v2ray/config.json 里的 inbounds 字段，找不到就是你没配，去 v2ray-examples 看看怎么配
-> 
-> 如果没有走代理，先去看看 v2ray 的日志走的是 proxy 还是 direct
