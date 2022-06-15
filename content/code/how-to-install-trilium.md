@@ -199,7 +199,7 @@ restorecon -v -R /etc/nginx
 如果不是，那就修改证书所在目录的数据类型
 
 ```bash
-chcon httpd_config_t /path/to/cert
+chcon -t httpd_config_t /path/to/cert
 ```
 
 (不推荐)关闭 SELinux enforcing mode
