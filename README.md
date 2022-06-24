@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://blog.hexsix.me"><img src="https://cdn.jsdelivr.net/gh/hexsix/images@master/bubble-favicon.png" width="192" height="192" alt="bubble"></a>
+  <a href="https://blog.hexsix.me"><img src="https://images.rinshankaiho.fun/1/2022/06/24/bubble-favico.png" width="192" height="192" alt="bubble"></a>
 </p>
 
 <div align="center">
