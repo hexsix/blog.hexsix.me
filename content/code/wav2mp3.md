@@ -10,10 +10,38 @@ tags:       ['CS', 'lame']
 
 <!--more-->
 
+单行：
+
+删除 wav 文件
+
+```sh
+for i in *.wav; do lame -V1 "$i" "${i%.wav}.mp3"; rm -f "$i"; done
+```
+
+不删除 wav 文件
+
+```sh
+for i in *.wav; do lame -V1 "$i" "${i%.wav}.mp3"; done
+```
+
+多行：
+
+删除 wav 文件
+
 ```sh
 for i in *.wav; 
 
-  do lame -V1 "$i" "${i%.wav}.mp3";rm -f "$i" ;
+  do lame -V1 "$i" "${i%.wav}.mp3"; rm -f "$i";
+
+done
+```
+
+不删除 wav 文件
+
+```sh
+for i in *.wav; 
+
+  do lame -V1 "$i" "${i%.wav}.mp3";
 
 done
 ```
