@@ -1,7 +1,7 @@
 ---
 title: "カワキヲアメク"
 date: 2019-01-25T18:00:00+08:00
-author: supercell
+author: 美波
 
 categories: ['Music']
 tags: ['Anisong', 'Music', '美波']
