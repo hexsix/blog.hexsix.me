@@ -1,6 +1,6 @@
 ---
 title: "如何禁用Edge快捷键"
-date: 2023-03-01T17:16:00+01:00
+date: 2023-03-01T17:16:00+08:00
 
 tags: ['Microsoft', 'Edge', 'Shortcuts']
 author: 喵小六
