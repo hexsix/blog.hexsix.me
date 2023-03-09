@@ -6,11 +6,12 @@
         <div class="recent-posts">
             <strong>{{ i18n "latestPosts" }}</strong>
             <ul>
-                {{ $dontRender :=  (slice "page" "quote" "link" "status" "archive") }}
-                {{ range (first (.Site.Params.amountLatestPostsInFooter | default 7) (where (where .Site.Pages.ByPublishDate.Reverse ".Kind" "page") ".Type" "not in" $dontRender )) }}
-                    <li>
-                        <a href="{{ .Permalink }}">{{ .Title }}</a>
-                    </li>
+                {{ $dontRender := (slice "page" "quote" "link" "status" "archive") }}
+                {{ range (first (.Site.Params.amountLatestPostsInFooter | default 7) (where (where
+                .Site.Pages.ByPublishDate.Reverse ".Kind" "page") ".Type" "not in" $dontRender )) }}
+                <li>
+                    <a href="{{ .Permalink }}">{{ .Title }}</a>
+                </li>
                 {{ end }}
             </ul>
         </div>
@@ -23,11 +24,12 @@
             {{ end }}
 
             <ul>
-                {{ range $order, $taxonomy := (first ( .Site.Params.amountCategoriesInFooter | default 7 ) .Site.Taxonomies.categories.ByCount) }}
+                {{ range $order, $taxonomy := (first ( .Site.Params.amountCategoriesInFooter | default 7 )
+                .Site.Taxonomies.categories.ByCount) }}
                 <li>
-                {{ with $.Site.GetPage (printf "/categories/%s" $taxonomy.Name) }}
+                    {{ with $.Site.GetPage (printf "/categories/%s" $taxonomy.Name) }}
                     <a href="{{ .Permalink }}">{{ .Title }} ({{ $taxonomy.Count }})</a>
-                {{ end }}
+                    {{ end }}
                 </li>
                 {{ end }}
             </ul>
@@ -73,7 +75,7 @@
 <div class="credits">
     <div class="container">
         <div class="copyright">
-            <a href="{{ .Site.Params.copyrightUrl | default "https://github.com/Lednerb" }}" target="_blank">
+            <a href="{{ .Site.Params.copyrightUrl | default " https://github.com/Lednerb" }}" target="_blank">
                 &copy;
                 {{ if .Site.Params.copyrightUseCurrentYear }}
                 {{ now.Year }}
@@ -84,28 +86,31 @@
                 {{ end }}
                 {{ .Site.Params.copyrightBy | default "by Lednerb" }}
             </a>
-            {{ with  .OutputFormats.Get "rss" -}}
+            {{ with .OutputFormats.Get "rss" -}}
             -
             <a href="{{ .Permalink }}">{{ .Name }}</a>
             {{- end }}
         </div>
         <div class="author">
-            <a href="{{ .Site.Params.creditsUrl | default "https://github.com/Lednerb/bilberry-hugo-theme" }}"
+            <a href="{{ .Site.Params.creditsUrl | default " https://github.com/Lednerb/bilberry-hugo-theme" }}"
                 target="_blank">{{ .Site.Params.creditsText | default "Bilberry Hugo Theme" }}</a>
         </div>
     </div>
 </div>
 
 <div id="left_layer" style="position:fixed; bottom:30px; right:30px;">
-  <div id="sakana-widget"></div>
-  <script>
-    function initSakanaWidget() {
-      new SakanaWidget({ character: 'takina' }).mount('#sakana-widget');
-    }
-  </script>
-  <script
-    async
-    onload="initSakanaWidget()"
-    src="https://cdn.jsdelivr.net/npm/sakana-widget@2.2.2/lib/sakana.min.js"
-  ></script>
+    <div id="sakana-widget"></div>
+    <script>
+        function initSakanaWidget() {
+            const goldenglow = SakanaWidget.getCharacter('chisato');
+            goldenglow.image = `/GOLDENGLOW-CHINANAGO.png`;
+            SakanaWidget.registerCharacter('goldenglow', goldenglow);
+            const mizushi = SakanaWidget.getCharacter('takina');
+            mizushi.image = `/MIZUSHI-SAKANA.png`;
+            SakanaWidget.registerCharacter('mizushi', mizushi);
+            new SakanaWidget({ character: 'goldenglow' }).mount('#sakana-widget');
+        }
+    </script>
+    <script async onload="initSakanaWidget()" src="https://cdn.jsdelivr.net/npm/sakana-widget@2.2.2/lib/sakana.min.js">
+    </script>
 </div>
