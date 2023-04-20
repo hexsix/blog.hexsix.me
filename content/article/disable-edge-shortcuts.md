@@ -5,7 +5,7 @@ date: 2023-03-01T17:16:00+08:00
 tags: ['Microsoft', 'Edge', 'Shortcuts']
 author: 喵小六
 
-featuredImage: "https://1drv.ms/i/s!AvByE8mhoFnwhM1x5c_ECcn5AnEE0g?e=M8khmn"
+featuredImage: "https://dsm01pap007files.storage.live.com/y4mFu8BPJ_sm7llnoEUpQpIk5pRS9LOW7t7yDsdRjE53dXgliCEkTJN0qcaaRCA0FVv4AlKZwPVhLqN8x2ZXWTZtF1jSScESAY0tj7ZKtVV79lTfu3plStG-O7BlR9FG2BiP89i2our4jP0h6KrmNkCexZ8xOW7QM0kTqrVQ_0WIlqVjRlj3f5Yr4Mnzp_qCoMD?width=256&height=96&cropmode=none"
 resizeImages: true
 ---
 
