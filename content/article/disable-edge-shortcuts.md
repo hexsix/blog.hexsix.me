@@ -5,7 +5,7 @@ date: 2023-03-01T17:16:00+08:00
 tags: ['Microsoft', 'Edge', 'Shortcuts']
 author: 喵小六
 
-featuredImage: "https://media.hexsix.me/s/igeuaw"
+featuredImage: "https://1drv.ms/i/s!AvByE8mhoFnwhM1x5c_ECcn5AnEE0g?e=M8khmn"
 resizeImages: true
 ---
 
