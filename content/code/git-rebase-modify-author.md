@@ -14,6 +14,8 @@ tags:       ['CS', 'git']
 
 <!--more-->
 
+**这篇博客已经过时了，新的文章在这里：https://blog.hexsix.me/code/git-modify-author/**
+
 ```bash
 $ git rebase [-i | --interactive] <start_commit_id> <end_commit_id> [--root]
 ```
