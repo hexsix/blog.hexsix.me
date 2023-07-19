@@ -14,6 +14,8 @@ tags:       ['CS', 'ssh']
 
 <!--more-->
 
+## 前言
+
 公司开发机要配置代理，我们要把本地的代理端口转发到远程的服务器上，这种叫做反向代理，`nginx` 就是反向代理；
 
 而要把内网的某个端口通过跳板机转发到本地电脑上，这种叫做正向代理，`ss` 和 `v2ray` 都是正向代理。
@@ -60,7 +62,13 @@ $ ssh -fCNL [LOCAL_PORT]:[C_IP]:[C_PORT] [B_USERNAME@B_IP]
 如果是把 C 服务器的 `8080` 端口转发到本地的 `8080` 端口上，B 服务器用户名是 `andy`，B 服务器访问 C 服务器的 IP 是 `198.168.98.101`，那么
 
 ```bash
-$ ssh -fCNR 8080:198.168.98.101:8080 andy@remote_server
+$ ssh -fCNL 8080:198.168.98.101:8080 andy@remote_server
+```
+
+其中：
+
+```
+-L 将本地机（客户机）的某个端口转发到远端指定机器的指定端口
 ```
 
 这样你就可以在本地浏览器打开 `localhost:8080` 来访问 C 服务器上 8080 端口的服务了
@@ -69,15 +77,15 @@ $ ssh -fCNR 8080:198.168.98.101:8080 andy@remote_server
 
 不幸的是这种连接并不稳定。
 
-一种办法是加 ServerAliveInterval 配置来定时报告保持连接，比如
+一种办法是加 `ServerAliveInterval` 配置来定时报告保持连接，比如
 
 ```bash
 $ ssh -o ServerAliveInterval=60 -fCNR 7890:localhost:9870 andy@remote_server
 $ ssh -o ServerAliveInterval=60 -fCNR 8080:198.168.98.101:8080 andy@remote_server
 ```
 
-`-o` 参数用于指定配置选项，这里每 60s 向 remote_server 汇报一次来保持连接
+`-o` 参数用于指定配置选项，这里每 `60` 秒向 `remote_server` 汇报一次来保持连接
 
 另一种办法是使用 `autossh`，隧道断开时 `autossh` 相比 `ssh` 会自动重连，参数是一样的，但是需要在 B 服务器上安装 `autossh` 所以不在我的考虑范围内。
 
-当然我推荐 windows 下是用 bitvise ssh client，这个客户端能自动重连，而且有！日！志！，比 xshell、putty 转发失败也不知道哪里搞错了，要好到不知道哪里去了。
+当然我推荐 `windows` 下是用 `bitvise ssh client`，这个客户端能自动重连，而且有！日！志！，比 `xshell`、`putty` 转发失败也不知道哪里搞错了，要好到不知道哪里去了。
