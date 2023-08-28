@@ -7,7 +7,6 @@ tags: ['Game', 'Arcaea']
 icon: "fa-gamepad"
 featuredImage: "https://images.rinshankaiho.fun/1/2022/06/24/arcaea-nintendo.jpg"
 
-excludeFromTopNav: false
 showDate: false
 ---
 

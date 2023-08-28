@@ -1,6 +1,6 @@
 title = "Bubble"
 baseURL = "https://blog.hexsix.me/"
-theme = "bilberry-hugo-theme"
+theme = "bilberry-hugo-theme/v4"
 
 # Generate the robots.txt file for SEO
 enableRobotsTXT = true
