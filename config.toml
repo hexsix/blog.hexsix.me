@@ -14,6 +14,10 @@ googleAnalytics = "G-JTDBBWRQP1"
 # Enable / Disable comments on the articles via Disqus.
 disqusShortname = ""
 
+# Enable / Disable open link with a new tab.
+[blackfriday]
+  hrefTargetBlank = false
+
 [params]
   # Custom CSS / JS modules that will be imported by the template.
   # Files are relative to the static/ directory or a URL.
@@ -21,6 +25,7 @@ disqusShortname = ""
   # theme.css and theme.js, respectively.
   css_modules = []
   js_modules = []
+  baseColor = "#DC9FB4"
 
   # Description and meta data for the search engines
   author = "hexsix"
@@ -38,11 +43,8 @@ disqusShortname = ""
   algolia_appId     = "TDKNB8DM4V"
   algolia_apiKey    = "932309ed26f5a9d9b5a22c082a4e5a4c"
   algolia_indexName = "blog.hexsix.me"
-  # Set this option to false if you want to search within all articles in all languages at once
-  algolia_currentLanguageOnly = false
-
-  # Enable / Disable comments on the articles via commento
-  # commentoJsURL = "https://commento.lednerb.de/js/commento.js"
+    # Set this option to false if you want to search within all articles in all languages at once
+    algolia_currentLanguageOnly = false
 
   # Enable / Disable Giscus comments
   giscus             = true
@@ -58,15 +60,6 @@ disqusShortname = ""
   giscusLanguage     = "zh-CN"
   giscusCrossOrigin  = "anonymous"
 
-  # Enable / Disable Utterances comments
-  utterances            = false
-  utterancesJsUrl       = "https://utteranc.es/client.js"
-  utterancesRepository  = "[ENTER REPO HERE]"
-  utterancesIssueTerm   = "pathname"
-  utterancesLabel       = "Comment"
-  utterancesTheme       = "github-light"
-  utterancesCrossOrigin = "anonymous"
-
   # Media configuration
     # let hugo automatically resize and crop your images to the correct sizes
     # NB: When enabled the image files get renamed by adding additional information,
@@ -77,13 +70,13 @@ disqusShortname = ""
     # your subtitle if you want to use any
     subtitle = "小六家的藏宝图"
 
-    # if you want to use libravatar or gravatar for the header image
-    avatarEmail = "hexsix@qq.com"
+    # if you want to use gravatar for the header image
+    gravatarEMail = "hexsix@qq.com"
 
-    # set an path to the image file you want to use | overwrites avatar by email
+    # set an path to the image file you want to use | overwrites gravatar
     customImage = ""
 
-    # define the icon you want to use for the overlay for the customImage or avatar.
+    # define the icon you want to use for the overlay for the customImage or gravatar.
     overlayIcon = "fa-home"
 
     # always display the top navigation (with pages and search) on non-mobile screens
@@ -133,19 +126,19 @@ disqusShortname = ""
     # social media profile urls for the footer links
     showSocialMedia = false
 
+    # define your links with FontAwesome 5 (only free icons are supported)
+    # all icons https://fontawesome.com/icons?d=gallery&m=free
+    # brand icons https://fontawesome.com/icons?d=gallery&s=brands&m=free
+    socialMediaLinks = [
+      { link = "https://twitter.com/hexsixology", icon = "fab fa-twitter", rel = "me" },
+      { link = "https://github.com/hexsix", icon = "fab fa-github" },
+    ]
+
     # show an archive link in the footer
     showArchive = false
 
     # archive grouping: "2006" by year, "2006-01" by month
     archiveDateGrouping = "2006-01"
-
-    # define your links with FontAwesome 5 (only free icons are supported)
-    # all icons https://fontawesome.com/icons?d=gallery&m=free
-    # brand icons https://fontawesome.com/icons?d=gallery&s=brands&m=free
-    socialMediaLinks = [
-      { link = "https://twitter.com/hexsixology", icon = "fab fa-twitter" },
-      { link = "https://github.com/hexsix", icon = "fab fa-github" },
-    ]
 
     # credits line configuration
     copyrightBy = "by hexsix"
@@ -159,10 +152,37 @@ disqusShortname = ""
 # customize your available languages for your multi-lingual site
 # or delete the [Languages] blog to use the theme with only one supported language
 # [Languages]
-#   [Languages.zh]
-#     weight = 1
 #   [Languages.en]
+#     weight = 1
+#   [Languages.de]
 #     weight = 2
+#     title = "Mein cooler neuer Blog"
+#     subtitle = "Hallo Welt! Dies ist der epischste Untertitel aller Zeiten."
+
+[markup]
+  defaultMarkdownHandler = 'goldmark'
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      # change to 'true' if you need to render raw HTML within your markdown content
+      unsafe = false
+    [markup.highlight]
+      anchorLineNos = false
+      codeFences = true
+      guessSyntax = false
+      hl_Lines = ''
+      hl_inline = false
+      lineAnchors = ''
+      lineNoStart = 1
+      lineNos = false
+      lineNumbersInTable = true
+      noClasses = true
+      noHl = false
+      style = 'monokai'
+      tabWidth = 4
+    [markup.tableOfContents]
+      endLevel = 5
+      ordered = false
+      startLevel = 2
 
 # don't change anything below
 [taxonomies]
@@ -174,15 +194,3 @@ disqusShortname = ""
 [outputs]
   home = [ "HTML", "JSON", "RSS" ]
   page = [ "HTML" ]
-
-[markup]
-  defaultMarkdownHandler = 'goldmark'
-  [markup.goldmark]
-    [markup.goldmark.renderer]
-      # Change to 'true' if you need to render raw HTML whithin your markdown content
-      unsafe = false
-
-  [markup.tableOfContents]
-    endLevel = 5
-    ordered = false
-    startLevel = 2
