@@ -25,7 +25,9 @@ disqusShortname = ""
   # theme.css and theme.js, respectively.
   css_modules = []
   js_modules = []
-  baseColor = "#DC9FB4"
+  baseColor = "#F5DAE3"
+  specialColor = "#C8839C"
+  highlightColor = "#B5C9D9"
 
   # Description and meta data for the search engines
   author = "hexsix"
