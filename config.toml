@@ -42,11 +42,11 @@ disqusShortname = ""
 
   # Enable / Disable algolia search
   algolia_search    = true
-  algolia_appId     = "TDKNB8DM4V"
-  algolia_apiKey    = "932309ed26f5a9d9b5a22c082a4e5a4c"
-  algolia_indexName = "blog.hexsix.me"
-    # Set this option to false if you want to search within all articles in all languages at once
-    algolia_currentLanguageOnly = false
+  algolia_appId     = "I54MTIWIV7"
+  algolia_apiKey    = "99fc7fde94a5df0f9136728871085f48"
+  algolia_indexName = "blog_hexsix_me"
+  # Set this option to false if you want to search within all articles in all languages at once
+  algolia_currentLanguageOnly = false
 
   # Enable / Disable Giscus comments
   giscus             = true
