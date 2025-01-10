@@ -1,0 +1,40 @@
+name: Upload Data to Algolia Index
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  upload_data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v2
+        with:
+          submodules: true  # Fetch Hugo themes (true OR recursive)
+          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: 'latest'
+          # extended: true
+
+      - name: Build Site
+        run: hugo
+
+      - name: Upload Data
+        working-directory: ./algolia # equivalent of 'cd algolia'
+        run: |
+          npm install
+          npm run data-upload -- -c \
+            -f ../public/index.json \
+            -a I54MTIWIV7 \
+            -k ${{ secrets.ALGOLIA_ADMIN_API_KEY }} \
+            -n blog_hexsix_me
