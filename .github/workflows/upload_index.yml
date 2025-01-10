@@ -21,10 +21,10 @@ jobs:
           node-version: '14'
 
       - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v2
+        uses: peaceiris/actions-hugo@v3
         with:
           hugo-version: 'latest'
-          # extended: true
+          extended: true
 
       - name: Build Site
         run: hugo
