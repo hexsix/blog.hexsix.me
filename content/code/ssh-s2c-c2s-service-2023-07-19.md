@@ -25,13 +25,13 @@ tags:       ['CS', 'ssh']
 要建立本地到 B 服务器的反向代理，换句话说，把本地的端口转发到 B 服务器
 
 ```bash
-$ ssh -fCNR [LOCAL_PORT]:[HOST_IP]:[HOST_PORT] [B_USERNAME@B_IP]
+$ ssh -CNR [LOCAL_PORT]:[HOST_IP]:[HOST_PORT] [B_USERNAME@B_IP]
 ```
 
 如果是把本地的 `7890` 端口转发到服务器的 `9870` 端口上，服务器用户名是 `andy`，那么
 
 ```bash
-$ ssh -fCNR 7890:localhost:9870 andy@remote_server
+$ ssh -CNR 9870:localhost:7890 andy@remote_server
 ```
 
 这样你就可以在服务器访问 `localhost:9870` 的流量都会被转发到本地 `7890` 端口的服务上了，这时候你就可以通过命令来检查代理是否生效
@@ -45,7 +45,7 @@ $ ALL_PROXY=http://localhost:9870 curl -vv google.com
 其中：
 
 ```
--f 后台执行 ssh 指令
+-f 后台执行 ssh 指令，需要长期保持的可以添加这个参数
 -C 允许压缩数据 
 -N 不执行远程指令
 -R 将远程主机（服务器）的某个端口转发到本地端指定机器的指定端口
