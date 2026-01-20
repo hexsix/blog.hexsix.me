@@ -1,0 +1,33 @@
+// @ts-check
+import { defineConfig } from 'astro/config';
+import expressiveCode from 'astro-expressive-code';
+import mdx from '@astrojs/mdx';
+import sitemap from '@astrojs/sitemap';
+
+// https://astro.build/config
+export default defineConfig({
+  site: 'https://blog.hexsix.me',
+  integrations: [
+    expressiveCode({
+      themes: ['github-dark', 'github-light'],
+      defaultProps: {
+        wrap: true,
+      },
+      styleOverrides: {
+        borderRadius: '0.5rem',
+        codePaddingBlock: '0.75rem',
+        codePaddingInline: '1rem',
+      },
+    }),
+    mdx(),
+    sitemap(),
+  ],
+  markdown: {
+    shikiConfig: {
+      themes: {
+        light: 'github-light',
+        dark: 'github-dark',
+      },
+    },
+  },
+});

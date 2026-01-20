@@ -1,0 +1,94 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import VideoEmbed from '../../components/VideoEmbed.astro';
+import Giscus from '../../components/Giscus.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('video');
+  return posts.map(post => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const formattedDate = post.data.date.toLocaleDateString('zh-CN', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<BaseLayout title={post.data.title}>
+  <article class="video-post">
+    <header class="post-header">
+      <h1 class="post-title">{post.data.title}</h1>
+      <div class="post-meta">
+        <time datetime={post.data.date.toISOString()}>{formattedDate}</time>
+        {post.data.categories && post.data.categories.length > 0 && (
+          <>
+            <span class="meta-separator">·</span>
+            <span>{post.data.categories.join(', ')}</span>
+          </>
+        )}
+      </div>
+    </header>
+
+    <VideoEmbed
+      youtube={post.data.youtube}
+      bilibili={post.data.bilibili}
+      title={post.data.title}
+    />
+
+    <div class="post-content article-content">
+      <Content />
+    </div>
+
+    <footer class="post-footer">
+      <Giscus />
+    </footer>
+  </article>
+</BaseLayout>
+
+<style>
+  .video-post {
+    max-width: 100%;
+  }
+
+  .post-header {
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .post-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .post-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--spacing-xs);
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+  }
+
+  .meta-separator {
+    color: var(--color-border);
+  }
+
+  .post-content {
+    margin-top: var(--spacing-xl);
+  }
+
+  .post-footer {
+    margin-top: var(--spacing-2xl);
+    padding-top: var(--spacing-xl);
+    border-top: 1px solid var(--color-border);
+  }
+</style>

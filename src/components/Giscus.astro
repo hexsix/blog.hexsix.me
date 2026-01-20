@@ -1,0 +1,59 @@
+---
+// Giscus configuration from original Hugo config
+const giscusConfig = {
+  repo: 'hexsix/blog.hexsix.me',
+  repoId: 'R_kgDOGh4vHw',
+  category: 'Blog Comments',
+  categoryId: 'DIC_kwDOGh4vH84CAcFP',
+  mapping: 'pathname',
+  reactionsEnabled: '1',
+  emitMetadata: '0',
+  inputPosition: 'top',
+  lang: 'zh-CN',
+};
+---
+
+<div class="giscus-container">
+  <script
+    src="https://giscus.app/client.js"
+    data-repo={giscusConfig.repo}
+    data-repo-id={giscusConfig.repoId}
+    data-category={giscusConfig.category}
+    data-category-id={giscusConfig.categoryId}
+    data-mapping={giscusConfig.mapping}
+    data-strict="0"
+    data-reactions-enabled={giscusConfig.reactionsEnabled}
+    data-emit-metadata={giscusConfig.emitMetadata}
+    data-input-position={giscusConfig.inputPosition}
+    data-theme="preferred_color_scheme"
+    data-lang={giscusConfig.lang}
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async
+  ></script>
+</div>
+
+<style>
+  .giscus-container {
+    margin-top: var(--spacing-lg);
+  }
+</style>
+
+<script>
+  // Update Giscus theme when page theme changes
+  const observer = new MutationObserver(() => {
+    const theme = document.documentElement.getAttribute('data-theme');
+    const iframe = document.querySelector<HTMLIFrameElement>('iframe.giscus-frame');
+    if (iframe) {
+      iframe.contentWindow?.postMessage(
+        { giscus: { setConfig: { theme: theme === 'dark' ? 'dark' : 'light' } } },
+        'https://giscus.app'
+      );
+    }
+  });
+
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['data-theme'],
+  });
+</script>

@@ -1,0 +1,156 @@
+---
+const navLinks = [
+  { href: '/', label: '首页' },
+  { href: '/code', label: '技术' },
+  { href: '/video', label: '视频' },
+  { href: '/quote', label: '一言' },
+  { href: '/about', label: '关于' },
+];
+---
+
+<header class="header">
+  <div class="header-container">
+    <a href="/" class="logo">
+      <span class="logo-text">Bubble</span>
+      <span class="logo-subtitle">小六家的藏宝图</span>
+    </a>
+
+    <nav class="nav">
+      {navLinks.map(link => (
+        <a href={link.href} class="nav-link">{link.label}</a>
+      ))}
+    </nav>
+
+    <div class="header-actions">
+      <button id="search-btn" class="icon-btn" aria-label="搜索">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.3-4.3"></path>
+        </svg>
+      </button>
+      <button id="theme-toggle" class="icon-btn" aria-label="切换主题">
+        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 2v2"></path>
+          <path d="M12 20v2"></path>
+          <path d="m4.93 4.93 1.41 1.41"></path>
+          <path d="m17.66 17.66 1.41 1.41"></path>
+          <path d="M2 12h2"></path>
+          <path d="M20 12h2"></path>
+          <path d="m6.34 17.66-1.41 1.41"></path>
+          <path d="m19.07 4.93-1.41 1.41"></path>
+        </svg>
+        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+    height: var(--header-height);
+  }
+
+  .header-container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 var(--spacing-lg);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-lg);
+  }
+
+  .logo {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+  }
+
+  .logo-text {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-special);
+  }
+
+  .logo-subtitle {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+  }
+
+  .nav {
+    display: flex;
+    gap: var(--spacing-md);
+  }
+
+  .nav-link {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    color: var(--color-text);
+    font-size: 0.9rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.2s ease;
+  }
+
+  .nav-link:hover {
+    background-color: var(--color-bg-secondary);
+    color: var(--color-text);
+  }
+
+  .header-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+  }
+
+  .icon-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: none;
+    background: none;
+    color: var(--color-text);
+    cursor: pointer;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s ease;
+  }
+
+  .icon-btn:hover {
+    background-color: var(--color-bg-secondary);
+  }
+
+  /* Theme toggle icons */
+  [data-theme="light"] .moon-icon,
+  [data-theme="dark"] .sun-icon {
+    display: none;
+  }
+
+  @media (max-width: 640px) {
+    .nav {
+      display: none;
+    }
+
+    .logo-subtitle {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const themeToggle = document.getElementById('theme-toggle');
+
+  themeToggle?.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+  });
+</script>

@@ -1,0 +1,72 @@
+---
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+}
+
+const { title, description = "Bubble - 小六家的藏宝图", image } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <link rel="canonical" href={canonicalURL} />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- SEO -->
+    <title>{title} | Bubble</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="hexsix" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {image && <meta property="og:image" content={new URL(image, Astro.site)} />}
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@hexsixology" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {
+      image && (
+        <meta name="twitter:image" content={new URL(image, Astro.site)} />
+      )
+    }
+
+    <!-- Theme -->
+    <script is:inline>
+      const theme = (() => {
+        if (
+          typeof localStorage !== "undefined" &&
+          localStorage.getItem("theme")
+        ) {
+          return localStorage.getItem("theme");
+        }
+        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          return "dark";
+        }
+        return "light";
+      })();
+      document.documentElement.setAttribute("data-theme", theme);
+    </script>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

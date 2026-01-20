@@ -1,0 +1,56 @@
+---
+interface Props {
+  youtube?: string;
+  bilibili?: string;
+  title?: string;
+}
+
+const { youtube, bilibili, title = '视频' } = Astro.props;
+
+const getYouTubeUrl = (id: string) => `https://www.youtube.com/embed/${id}`;
+const getBilibiliUrl = (bvid: string) => `https://player.bilibili.com/player.html?bvid=${bvid}&high_quality=1`;
+---
+
+<div class="video-container">
+  {youtube && (
+    <iframe
+      src={getYouTubeUrl(youtube)}
+      title={title}
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+      loading="lazy"
+    ></iframe>
+  )}
+  {bilibili && (
+    <iframe
+      src={getBilibiliUrl(bilibili)}
+      title={title}
+      frameborder="0"
+      allowfullscreen
+      loading="lazy"
+      scrolling="no"
+    ></iframe>
+  )}
+</div>
+
+<style>
+  .video-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    margin: var(--spacing-lg) 0;
+    background-color: var(--color-bg-secondary);
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
+
+  .video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+</style>
