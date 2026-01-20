@@ -18,7 +18,7 @@ tags:       ['centos', 'vscode', 'glibc']
 
 当我们连接到旧版linux的时候，remote-ssh扩展会报如下错误
 
-```txt
+```txt wrap=false
 在最近一次远程 - SSH 会话中检测到以下问题 
 Ctrl+单击某个问题以在 Copilot 聊天中继续。 
 ╔══════════════╤════════════════════════════════════════════════════════════════════╤════════════════════════════════════════════════════════════════════╤════════════════════════════════════════════════════════════════════╗
@@ -34,11 +34,10 @@ Ctrl+单击某个问题以在 Copilot 聊天中继续。
 
 本教程这里跳过编译，直接通过 mamba 安装 glibc 和 patchelf。
 
-> `mamba` 是 miniforge 的命令，因为 `conda` 源是商业软件，所以用 `miniforge` 替代。
+> [!NOTE]
+> `mamba` 是 miniforge 的命令，因为 conda 源是商业软件，所以用 miniforge 替代。
 >
 > 没有这方面合规性要求的小伙伴可以用 conda 替代，本文中的命令只要用 `conda install` 替代 `mamba install` 即可。
->
-> `miniforge` 或者 `conda` 的安装本教程不展开。
 
 ## 安装 glibc 和 patchelf
 
@@ -47,24 +46,7 @@ Ctrl+单击某个问题以在 Copilot 聊天中继续。
 先安装 glibc 2.28
 
 ```bash
-$ mamba install sysroot_linux-64=2.28
-
-  Package                    Version  Build       Channel         Size
-────────────────────────────────────────────────────────────────────────
-  Install:
-────────────────────────────────────────────────────────────────────────
-
-  + kernel-headers_linux-64   4.18.0  he073ed8_9  conda-forge      1MB
-  + sysroot_linux-64            2.28  he3f20f0_9  conda-forge     24MB
-
-  Summary:
-
-  Install: 2 packages
-
-  Total download: 25MB
-
-────────────────────────────────────────────────────────────────────────
-
+mamba install sysroot_linux-64=2.28
 ```
 
 验证安装，在安装位置的 sysroot 下（默认是 `~/miniforge3/x86_64-conda-linux-gnu/sysroot/lib`）
@@ -91,7 +73,7 @@ GLIBCXX_3.4.21
 如果没有，用以下命令安装
 
 ```bash
-$ mamba install libstdcxx-ng
+mamba install libstdcxx-ng
 ```
 
 ### 3. patchelf
@@ -99,36 +81,17 @@ $ mamba install libstdcxx-ng
 安装 patchelf
 
 ```bash
-$ mamba install patchelf
-
-  Package     Version  Build       Channel         Size
-─────────────────────────────────────────────────────────
-  Install:
-─────────────────────────────────────────────────────────
-
-  + patchelf   0.17.2  h58526e2_0  conda-forge     94kB
-
-  Summary:
-
-  Install: 1 packages
-
-  Total download: 94kB
-
-─────────────────────────────────────────────────────────
+mamba install patchelf
 ```
 
 验证安装
 
 ```bash
-$ patchelf --version
-patchelf 0.17.2
-$ which patchelf
-~/miniforge3/bin/patchelf
+patchelf --version
 ```
 
-> patchelf v0.17.x is known to cause segfaults with the remote server, we recommend using patchelf >=v0.18.x
->
-> vscode 官方给了警告，但我还没遇到问题，所以简单使用 conda 的 patchelf
+> [!WARNING]
+> vscode 官方给了警告: patchelf v0.17.x is known to cause segfaults with the remote server, we recommend using patchelf >=v0.18.x，但我还没遇到问题，所以简单使用 conda 的 patchelf
 
 ## 配置环境变量
 
@@ -140,19 +103,17 @@ export VSCODE_SERVER_CUSTOM_GLIBC_PATH="/home/{YOURNAME}/miniforge3/x86_64-conda
 export VSCODE_SERVER_PATCHELF_PATH="/home/{YOURNAME}/miniforge3/bin/patchelf"
 ```
 
-注意，IMPORTANT，CAUTION，总共有 4 个路径
+> [!NOTE]
+> 总共有 4 个路径，4 个 YOURNAME 要修改
 
-- 你的动态链接器的路径，用于 `patchelf --set-interpreter` 参数
-- 你的 `GLIBC` 的路径，用于 `patchelf --set-rpath` 参数
-- `GLIBCXX` 路径，也用于 `patchelf --set-rpath` 参数，一般来讲 lib 是在一起的，但是 `conda` 放在了两个目录下，所以注意看 `VSCODE_SERVER_CUSTOM_GLIBC_PATH` 拼了两个路径
-- `patchelf` 路径
-
-为什么要放在顶部
-
+> [!TIP]
+> **为什么要放在顶部**
+>
 > VS Code 远程连接时会启动非交互式 Shell，你必须确保上述 `export` 语句写在 `~/.bashrc` 的最顶部，或者至少在任何 `[ -z "$PS1" ] && return` 语句之前。
 
-为什么要用绝对路径
-
+> [!TIP]
+> **为什么要用绝对路径**
+>
 > 在 shell 脚本或环境变量中，`~` 是一个 shell 扩展。但是 VS Code Server 在执行打补丁命令时，通常不会对环境变量进行 shell 路径扩展。
 
 ## 连接服务器

@@ -4,6 +4,7 @@ import expressiveCode from 'astro-expressive-code';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
+import remarkGithubAlerts from 'remark-github-blockquote-alert';
 
 // https://astro.build/config
 export default defineConfig({
@@ -27,6 +28,7 @@ export default defineConfig({
     sitemap(),
   ],
   markdown: {
+    remarkPlugins: [remarkGithubAlerts],
     shikiConfig: {
       themes: {
         light: 'github-light',

@@ -11,11 +11,11 @@ const navLinks = [
 ---
 
 <header class="sticky top-0 z-50 bg-bg/95 backdrop-blur-sm border-b border-border">
-  <div class="max-w-5xl mx-auto px-4 h-12 flex items-center justify-between gap-4">
+  <div class="max-w-5xl mx-auto px-4 h-10 flex items-center justify-between gap-3">
     <!-- Logo -->
-    <a href="/" class="flex items-center gap-1.5 no-underline shrink-0">
-      <span class="text-lg font-bold text-special">Bubble</span>
-      <span class="text-[10px] text-text-secondary hidden md:block">小六家的藏宝图</span>
+    <a href="/" class="flex items-center gap-1 no-underline shrink-0">
+      <span class="text-base font-semibold text-special">Bubble</span>
+      <span class="text-[9px] text-text-secondary hidden md:block">小六家的藏宝图</span>
     </a>
 
     <!-- Navigation -->
@@ -23,7 +23,7 @@ const navLinks = [
       {navLinks.map(link => (
         <a
           href={link.href}
-          class="px-2.5 py-1 text-text text-[13px] rounded-md transition-all duration-200 hover:bg-special/10 hover:text-special"
+          class="px-2 py-0.5 text-text text-xs rounded transition-all duration-200 hover:bg-special/10 hover:text-special"
         >
           {link.label}
         </a>
@@ -35,9 +35,9 @@ const navLinks = [
       <!-- Search Input -->
       <button
         id="search-btn"
-        class="flex items-center gap-2 h-8 px-3 bg-bg-secondary border border-border rounded-full text-text-secondary text-sm cursor-pointer transition-all duration-200 hover:border-special/50 hover:bg-bg"
+        class="flex items-center gap-1.5 h-7 px-2.5 bg-bg-secondary border border-border rounded-full text-text-secondary text-xs cursor-pointer transition-all duration-200 hover:border-special/50 hover:bg-bg"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60">
+        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60">
           <circle cx="11" cy="11" r="8"></circle>
           <path d="m21 21-4.3-4.3"></path>
         </svg>
@@ -48,14 +48,14 @@ const navLinks = [
       <!-- Theme Toggle -->
       <button
         id="theme-toggle"
-        class="relative flex items-center justify-center w-8 h-8 rounded-full bg-bg-secondary border border-border cursor-pointer transition-all duration-300 hover:border-special/50"
+        class="relative flex items-center justify-center w-7 h-7 rounded-full bg-bg-secondary border border-border cursor-pointer transition-all duration-300 hover:border-special/50"
         aria-label="切换主题"
       >
-        <svg class="sun-icon absolute transition-all duration-300" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg class="sun-icon absolute transition-all duration-300" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="5"></circle>
           <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
         </svg>
-        <svg class="moon-icon absolute transition-all duration-300" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg class="moon-icon absolute transition-all duration-300" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
         </svg>
       </button>
@@ -63,10 +63,10 @@ const navLinks = [
       <!-- Mobile Menu -->
       <button
         id="mobile-menu-btn"
-        class="sm:hidden flex items-center justify-center w-8 h-8 rounded-full bg-bg-secondary border border-border"
+        class="sm:hidden flex items-center justify-center w-7 h-7 rounded-full bg-bg-secondary border border-border"
         aria-label="菜单"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="4" x2="20" y1="12" y2="12"></line>
           <line x1="4" x2="20" y1="6" y2="6"></line>
           <line x1="4" x2="20" y1="18" y2="18"></line>
