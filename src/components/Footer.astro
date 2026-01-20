@@ -7,29 +7,35 @@ const socialLinks = [
 ];
 ---
 
-<footer class="footer">
-  <div class="footer-container">
-    <div class="footer-content">
-      <div class="footer-section">
-        <h3 class="footer-title">Bubble</h3>
-        <p class="footer-desc">小六家的藏宝图</p>
+<footer class="bg-bg-secondary border-t border-border py-12 pb-6 mt-12">
+  <div class="max-w-content mx-auto px-6">
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-8 mb-8">
+      <div>
+        <h3 class="text-base font-semibold mb-4">Bubble</h3>
+        <p class="text-sm text-text-secondary m-0">小六家的藏宝图</p>
       </div>
 
-      <div class="footer-section">
-        <h3 class="footer-title">链接</h3>
-        <nav class="footer-nav">
-          <a href="/">首页</a>
-          <a href="/code">技术</a>
-          <a href="/about">关于</a>
-          <a href="/rss.xml">RSS</a>
+      <div>
+        <h3 class="text-base font-semibold mb-4">链接</h3>
+        <nav class="flex flex-col gap-1">
+          <a href="/" class="text-sm text-text-secondary hover:text-link">首页</a>
+          <a href="/code" class="text-sm text-text-secondary hover:text-link">技术</a>
+          <a href="/about" class="text-sm text-text-secondary hover:text-link">关于</a>
+          <a href="/rss.xml" class="text-sm text-text-secondary hover:text-link">RSS</a>
         </nav>
       </div>
 
-      <div class="footer-section">
-        <h3 class="footer-title">社交</h3>
-        <div class="social-links">
+      <div>
+        <h3 class="text-base font-semibold mb-4">社交</h3>
+        <div class="flex gap-2">
           {socialLinks.map(link => (
-            <a href={link.href} target="_blank" rel="noopener noreferrer" class="social-link" aria-label={link.label}>
+            <a
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex items-center justify-center w-10 h-10 text-text-secondary rounded-lg transition-all duration-200 hover:bg-bg hover:text-link"
+              aria-label={link.label}
+            >
               {link.icon === 'twitter' && (
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
@@ -51,94 +57,10 @@ const socialLinks = [
       </div>
     </div>
 
-    <div class="footer-bottom">
-      <p>&copy; 2017-{currentYear} by hexsix. Powered by <a href="https://astro.build" target="_blank" rel="noopener">Astro</a>.</p>
+    <div class="pt-6 border-t border-border text-center">
+      <p class="text-sm text-text-secondary m-0">
+        &copy; 2017-{currentYear} by hexsix. Powered by <a href="https://astro.build" target="_blank" rel="noopener" class="text-link">Astro</a>.
+      </p>
     </div>
   </div>
 </footer>
-
-<style>
-  .footer {
-    background-color: var(--color-bg-secondary);
-    border-top: 1px solid var(--color-border);
-    padding: var(--spacing-2xl) 0 var(--spacing-lg);
-    margin-top: var(--spacing-2xl);
-  }
-
-  .footer-container {
-    max-width: var(--max-width);
-    margin: 0 auto;
-    padding: 0 var(--spacing-lg);
-  }
-
-  .footer-content {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: var(--spacing-xl);
-    margin-bottom: var(--spacing-xl);
-  }
-
-  .footer-title {
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: var(--spacing-md);
-  }
-
-  .footer-desc {
-    font-size: 0.875rem;
-    color: var(--color-text-secondary);
-    margin: 0;
-  }
-
-  .footer-nav {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-xs);
-  }
-
-  .footer-nav a {
-    font-size: 0.875rem;
-    color: var(--color-text-secondary);
-  }
-
-  .footer-nav a:hover {
-    color: var(--color-link);
-  }
-
-  .social-links {
-    display: flex;
-    gap: var(--spacing-sm);
-  }
-
-  .social-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2.5rem;
-    height: 2.5rem;
-    color: var(--color-text-secondary);
-    border-radius: 0.5rem;
-    transition: all 0.2s ease;
-  }
-
-  .social-link:hover {
-    background-color: var(--color-bg);
-    color: var(--color-link);
-  }
-
-  .footer-bottom {
-    padding-top: var(--spacing-lg);
-    border-top: 1px solid var(--color-border);
-    text-align: center;
-  }
-
-  .footer-bottom p {
-    font-size: 0.875rem;
-    color: var(--color-text-secondary);
-    margin: 0;
-  }
-
-  .footer-bottom a {
-    color: var(--color-link);
-  }
-</style>

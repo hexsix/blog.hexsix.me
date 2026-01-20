@@ -37,20 +37,28 @@ const getPostType = (collection: string) => {
 ---
 
 <BaseLayout title="首页">
-  <section class="hero">
-    <h1 class="hero-title">Bubble</h1>
-    <p class="hero-subtitle">小六家的藏宝图</p>
+  <section class="text-center py-12 mb-8">
+    <h1 class="text-5xl sm:text-6xl font-bold text-special mb-2">Bubble</h1>
+    <p class="text-xl text-text-secondary m-0">小六家的藏宝图</p>
   </section>
 
-  <section class="posts-section">
-    <h2 class="section-title">最新文章</h2>
-    <ul class="post-list">
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-6 pb-2 border-b-2 border-base">最新文章</h2>
+    <ul class="list-none p-0 m-0">
       {allPosts.map(post => (
-        <li class="post-item">
-          <a href={getPostUrl(post)} class="post-link">
-            <span class="post-type">{getPostType(post.collection)}</span>
-            <h3 class="post-title">{post.data.title}</h3>
-            <time class="post-date" datetime={post.data.date.toISOString()}>
+        <li class="mb-2">
+          <a
+            href={getPostUrl(post)}
+            class="flex items-center gap-4 p-4 rounded-lg no-underline transition-colors duration-200 hover:bg-bg-secondary sm:flex-nowrap flex-wrap"
+          >
+            <span class="shrink-0 px-2 py-1 text-xs font-medium text-special bg-base rounded">
+              {getPostType(post.collection)}
+            </span>
+            <h3 class="flex-1 text-base font-medium text-text m-0">{post.data.title}</h3>
+            <time
+              class="shrink-0 text-sm text-text-secondary sm:w-auto w-full sm:ml-0 ml-[calc(1rem+3rem)]"
+              datetime={post.data.date.toISOString()}
+            >
               {formatDate(post.data.date)}
             </time>
           </a>
@@ -59,126 +67,24 @@ const getPostType = (collection: string) => {
     </ul>
   </section>
 
-  <section class="more-links">
-    <a href="/code" class="more-link">查看所有技术文章 &rarr;</a>
-    <a href="/video" class="more-link">查看所有视频 &rarr;</a>
-    <a href="/quote" class="more-link">查看所有一言 &rarr;</a>
+  <section class="flex flex-wrap gap-4 justify-center">
+    <a
+      href="/code"
+      class="px-6 py-2 text-sm text-special border border-special rounded-full transition-all duration-200 hover:bg-special hover:text-white"
+    >
+      查看所有技术文章 &rarr;
+    </a>
+    <a
+      href="/video"
+      class="px-6 py-2 text-sm text-special border border-special rounded-full transition-all duration-200 hover:bg-special hover:text-white"
+    >
+      查看所有视频 &rarr;
+    </a>
+    <a
+      href="/quote"
+      class="px-6 py-2 text-sm text-special border border-special rounded-full transition-all duration-200 hover:bg-special hover:text-white"
+    >
+      查看所有一言 &rarr;
+    </a>
   </section>
 </BaseLayout>
-
-<style>
-  .hero {
-    text-align: center;
-    padding: var(--spacing-2xl) 0;
-    margin-bottom: var(--spacing-xl);
-  }
-
-  .hero-title {
-    font-size: 3rem;
-    font-weight: 700;
-    color: var(--color-special);
-    margin-bottom: var(--spacing-sm);
-  }
-
-  .hero-subtitle {
-    font-size: 1.25rem;
-    color: var(--color-text-secondary);
-    margin: 0;
-  }
-
-  .posts-section {
-    margin-bottom: var(--spacing-2xl);
-  }
-
-  .section-title {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: var(--spacing-lg);
-    padding-bottom: var(--spacing-sm);
-    border-bottom: 2px solid var(--color-base);
-  }
-
-  .post-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .post-item {
-    margin-bottom: var(--spacing-sm);
-  }
-
-  .post-link {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-md);
-    padding: var(--spacing-md);
-    border-radius: 0.5rem;
-    text-decoration: none;
-    transition: background-color 0.2s ease;
-  }
-
-  .post-link:hover {
-    background-color: var(--color-bg-secondary);
-  }
-
-  .post-type {
-    flex-shrink: 0;
-    padding: var(--spacing-xs) var(--spacing-sm);
-    font-size: 0.75rem;
-    font-weight: 500;
-    color: var(--color-special);
-    background-color: var(--color-base);
-    border-radius: 0.25rem;
-  }
-
-  .post-title {
-    flex: 1;
-    font-size: 1rem;
-    font-weight: 500;
-    color: var(--color-text);
-    margin: 0;
-  }
-
-  .post-date {
-    flex-shrink: 0;
-    font-size: 0.875rem;
-    color: var(--color-text-secondary);
-  }
-
-  .more-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--spacing-md);
-    justify-content: center;
-  }
-
-  .more-link {
-    padding: var(--spacing-sm) var(--spacing-lg);
-    font-size: 0.875rem;
-    color: var(--color-special);
-    border: 1px solid var(--color-special);
-    border-radius: 2rem;
-    transition: all 0.2s ease;
-  }
-
-  .more-link:hover {
-    background-color: var(--color-special);
-    color: white;
-  }
-
-  @media (max-width: 640px) {
-    .hero-title {
-      font-size: 2rem;
-    }
-
-    .post-link {
-      flex-wrap: wrap;
-    }
-
-    .post-date {
-      width: 100%;
-      margin-left: calc(var(--spacing-md) + 3rem);
-    }
-  }
-</style>

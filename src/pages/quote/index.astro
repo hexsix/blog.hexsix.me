@@ -23,77 +23,22 @@ const formatDate = (date: Date) => {
 ---
 
 <BaseLayout title="一言" description="收集的名言和感悟">
-  <header class="page-header">
-    <h1 class="page-title">一言</h1>
-    <p class="page-desc">收集的名言和感悟</p>
+  <header class="mb-12">
+    <h1 class="text-3xl font-bold mb-2">一言</h1>
+    <p class="text-text-secondary m-0">收集的名言和感悟</p>
   </header>
 
-  <div class="quotes-grid">
+  <div class="grid gap-6">
     {renderedPosts.map(({ post, Content }) => (
-      <blockquote class="quote-card">
-        <div class="quote-content">
+      <blockquote class="p-6 bg-bg-secondary border-l-4 border-special rounded-r-lg m-0">
+        <div class="text-lg leading-relaxed text-text italic mb-4 [&_p]:m-0">
           <Content />
         </div>
-        <footer class="quote-footer">
-          <cite class="quote-author">— {post.data.author}</cite>
+        <footer class="flex justify-between items-center text-sm text-text-secondary">
+          <cite class="not-italic font-medium">— {post.data.author}</cite>
           <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
         </footer>
       </blockquote>
     ))}
   </div>
 </BaseLayout>
-
-<style>
-  .page-header {
-    margin-bottom: var(--spacing-2xl);
-  }
-
-  .page-title {
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: var(--spacing-sm);
-  }
-
-  .page-desc {
-    color: var(--color-text-secondary);
-    margin: 0;
-  }
-
-  .quotes-grid {
-    display: grid;
-    gap: var(--spacing-lg);
-  }
-
-  .quote-card {
-    padding: var(--spacing-lg);
-    background-color: var(--color-bg-secondary);
-    border-left: 4px solid var(--color-special);
-    border-radius: 0 0.5rem 0.5rem 0;
-    margin: 0;
-  }
-
-  .quote-content {
-    font-size: 1.125rem;
-    line-height: 1.7;
-    color: var(--color-text);
-    font-style: italic;
-    margin-bottom: var(--spacing-md);
-  }
-
-  .quote-content :global(p) {
-    margin: 0;
-  }
-
-  .quote-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 0.875rem;
-    color: var(--color-text-secondary);
-  }
-
-  .quote-author {
-    font-style: normal;
-    font-weight: 500;
-  }
-</style>

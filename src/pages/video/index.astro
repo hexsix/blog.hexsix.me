@@ -21,94 +21,29 @@ const getPlatform = (post: typeof sortedPosts[0]) => {
 ---
 
 <BaseLayout title="视频" description="收藏的视频分享">
-  <header class="page-header">
-    <h1 class="page-title">视频</h1>
-    <p class="page-desc">收藏的视频分享</p>
+  <header class="mb-12">
+    <h1 class="text-3xl font-bold mb-2">视频</h1>
+    <p class="text-text-secondary m-0">收藏的视频分享</p>
   </header>
 
-  <div class="video-grid">
+  <div class="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-6">
     {sortedPosts.map(post => (
-      <a href={`/video/${post.id}`} class="video-card">
-        <div class="video-thumbnail">
-          <span class="platform-badge">{getPlatform(post)}</span>
+      <a
+        href={`/video/${post.id}`}
+        class="block no-underline rounded-xl overflow-hidden bg-bg-secondary transition-all duration-200 hover:-translate-y-1 hover:shadow-lg"
+      >
+        <div class="relative aspect-video bg-gradient-to-br from-base to-highlight flex items-center justify-center">
+          <span class="px-2 py-1 text-xs font-semibold text-white bg-black/50 rounded">
+            {getPlatform(post)}
+          </span>
         </div>
-        <div class="video-info">
-          <h2 class="video-title">{post.data.title}</h2>
-          <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+        <div class="p-4">
+          <h2 class="text-base font-semibold text-text m-0 mb-1 leading-snug">{post.data.title}</h2>
+          <time class="text-sm text-text-secondary" datetime={post.data.date.toISOString()}>
+            {formatDate(post.data.date)}
+          </time>
         </div>
       </a>
     ))}
   </div>
 </BaseLayout>
-
-<style>
-  .page-header {
-    margin-bottom: var(--spacing-2xl);
-  }
-
-  .page-title {
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: var(--spacing-sm);
-  }
-
-  .page-desc {
-    color: var(--color-text-secondary);
-    margin: 0;
-  }
-
-  .video-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: var(--spacing-lg);
-  }
-
-  .video-card {
-    display: block;
-    text-decoration: none;
-    border-radius: 0.75rem;
-    overflow: hidden;
-    background-color: var(--color-bg-secondary);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-
-  .video-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-  }
-
-  .video-thumbnail {
-    position: relative;
-    aspect-ratio: 16 / 9;
-    background: linear-gradient(135deg, var(--color-base), var(--color-highlight));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .platform-badge {
-    padding: var(--spacing-xs) var(--spacing-sm);
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: white;
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 0.25rem;
-  }
-
-  .video-info {
-    padding: var(--spacing-md);
-  }
-
-  .video-title {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--color-text);
-    margin: 0 0 var(--spacing-xs);
-    line-height: 1.4;
-  }
-
-  .video-info time {
-    font-size: 0.875rem;
-    color: var(--color-text-secondary);
-  }
-</style>

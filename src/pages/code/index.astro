@@ -15,110 +15,34 @@ const formatDate = (date: Date) => {
 ---
 
 <BaseLayout title="技术文章" description="技术教程、开发笔记和代码分享">
-  <header class="page-header">
-    <h1 class="page-title">技术文章</h1>
-    <p class="page-desc">技术教程、开发笔记和代码分享</p>
+  <header class="mb-12">
+    <h1 class="text-3xl font-bold mb-2">技术文章</h1>
+    <p class="text-text-secondary m-0">技术教程、开发笔记和代码分享</p>
   </header>
 
-  <ul class="post-list">
+  <ul class="list-none p-0 m-0">
     {sortedPosts.map(post => (
-      <li class="post-item">
-        <a href={`/code/${post.id}`} class="post-link">
-          <div class="post-content">
-            <h2 class="post-title">{post.data.title}</h2>
-            <div class="post-meta">
+      <li class="border-b border-border last:border-b-0">
+        <a
+          href={`/code/${post.id}`}
+          class="flex items-center justify-between gap-4 py-6 no-underline transition-opacity duration-200 hover:opacity-80"
+        >
+          <div class="flex-1">
+            <h2 class="text-lg font-semibold text-text m-0 mb-1">{post.data.title}</h2>
+            <div class="flex flex-wrap items-center gap-2 text-sm text-text-secondary">
               <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
               {post.data.tags && post.data.tags.length > 0 && (
-                <span class="post-tags">
+                <span class="flex gap-1">
                   {post.data.tags.slice(0, 3).map(tag => (
-                    <span class="tag">#{tag}</span>
+                    <span class="text-special">#{tag}</span>
                   ))}
                 </span>
               )}
             </div>
           </div>
-          <span class="post-arrow">&rarr;</span>
+          <span class="text-text-secondary text-xl">&rarr;</span>
         </a>
       </li>
     ))}
   </ul>
 </BaseLayout>
-
-<style>
-  .page-header {
-    margin-bottom: var(--spacing-2xl);
-  }
-
-  .page-title {
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: var(--spacing-sm);
-  }
-
-  .page-desc {
-    color: var(--color-text-secondary);
-    margin: 0;
-  }
-
-  .post-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .post-item {
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .post-item:last-child {
-    border-bottom: none;
-  }
-
-  .post-link {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--spacing-md);
-    padding: var(--spacing-lg) 0;
-    text-decoration: none;
-    transition: opacity 0.2s ease;
-  }
-
-  .post-link:hover {
-    opacity: 0.8;
-  }
-
-  .post-content {
-    flex: 1;
-  }
-
-  .post-title {
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: var(--color-text);
-    margin: 0 0 var(--spacing-xs);
-  }
-
-  .post-meta {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--spacing-sm);
-    font-size: 0.875rem;
-    color: var(--color-text-secondary);
-  }
-
-  .post-tags {
-    display: flex;
-    gap: var(--spacing-xs);
-  }
-
-  .tag {
-    color: var(--color-special);
-  }
-
-  .post-arrow {
-    color: var(--color-text-secondary);
-    font-size: 1.25rem;
-  }
-</style>

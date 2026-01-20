@@ -23,14 +23,14 @@ const formattedDate = post.data.date.toLocaleDateString('zh-CN', {
 ---
 
 <BaseLayout title={post.data.title}>
-  <article class="video-post">
-    <header class="post-header">
-      <h1 class="post-title">{post.data.title}</h1>
-      <div class="post-meta">
+  <article class="max-w-full">
+    <header class="mb-6">
+      <h1 class="text-2xl font-bold leading-tight mb-2">{post.data.title}</h1>
+      <div class="flex flex-wrap items-center gap-1 text-sm text-text-secondary">
         <time datetime={post.data.date.toISOString()}>{formattedDate}</time>
         {post.data.categories && post.data.categories.length > 0 && (
           <>
-            <span class="meta-separator">·</span>
+            <span class="text-border">·</span>
             <span>{post.data.categories.join(', ')}</span>
           </>
         )}
@@ -43,52 +43,12 @@ const formattedDate = post.data.date.toLocaleDateString('zh-CN', {
       title={post.data.title}
     />
 
-    <div class="post-content article-content">
+    <div class="article-content mt-8">
       <Content />
     </div>
 
-    <footer class="post-footer">
+    <footer class="mt-12 pt-8 border-t border-border">
       <Giscus />
     </footer>
   </article>
 </BaseLayout>
-
-<style>
-  .video-post {
-    max-width: 100%;
-  }
-
-  .post-header {
-    margin-bottom: var(--spacing-lg);
-  }
-
-  .post-title {
-    font-size: 1.75rem;
-    font-weight: 700;
-    line-height: 1.2;
-    margin-bottom: var(--spacing-sm);
-  }
-
-  .post-meta {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--spacing-xs);
-    font-size: 0.875rem;
-    color: var(--color-text-secondary);
-  }
-
-  .meta-separator {
-    color: var(--color-border);
-  }
-
-  .post-content {
-    margin-top: var(--spacing-xl);
-  }
-
-  .post-footer {
-    margin-top: var(--spacing-2xl);
-    padding-top: var(--spacing-xl);
-    border-top: 1px solid var(--color-border);
-  }
-</style>

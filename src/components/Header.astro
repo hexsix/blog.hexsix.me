@@ -8,27 +8,40 @@ const navLinks = [
 ];
 ---
 
-<header class="header">
-  <div class="header-container">
-    <a href="/" class="logo">
-      <span class="logo-text">Bubble</span>
-      <span class="logo-subtitle">小六家的藏宝图</span>
+<header class="sticky top-0 z-50 bg-bg border-b border-border h-header">
+  <div class="max-w-content mx-auto px-6 h-full flex items-center justify-between gap-6">
+    <a href="/" class="flex flex-col no-underline">
+      <span class="text-xl font-bold text-special">Bubble</span>
+      <span class="text-xs text-text-secondary hidden sm:block">小六家的藏宝图</span>
     </a>
 
-    <nav class="nav">
+    <nav class="hidden sm:flex gap-4">
       {navLinks.map(link => (
-        <a href={link.href} class="nav-link">{link.label}</a>
+        <a
+          href={link.href}
+          class="px-2 py-1 text-text text-sm rounded transition-colors duration-200 hover:bg-bg-secondary hover:text-text"
+        >
+          {link.label}
+        </a>
       ))}
     </nav>
 
-    <div class="header-actions">
-      <button id="search-btn" class="icon-btn" aria-label="搜索">
+    <div class="flex gap-2">
+      <button
+        id="search-btn"
+        class="flex items-center justify-center w-10 h-10 border-none bg-transparent text-text cursor-pointer rounded-lg transition-colors duration-200 hover:bg-bg-secondary"
+        aria-label="搜索"
+      >
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="8"></circle>
           <path d="m21 21-4.3-4.3"></path>
         </svg>
       </button>
-      <button id="theme-toggle" class="icon-btn" aria-label="切换主题">
+      <button
+        id="theme-toggle"
+        class="flex items-center justify-center w-10 h-10 border-none bg-transparent text-text cursor-pointer rounded-lg transition-colors duration-200 hover:bg-bg-secondary"
+        aria-label="切换主题"
+      >
         <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="4"></circle>
           <path d="M12 2v2"></path>
@@ -49,98 +62,10 @@ const navLinks = [
 </header>
 
 <style>
-  .header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background-color: var(--color-bg);
-    border-bottom: 1px solid var(--color-border);
-    height: var(--header-height);
-  }
-
-  .header-container {
-    max-width: var(--max-width);
-    margin: 0 auto;
-    padding: 0 var(--spacing-lg);
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--spacing-lg);
-  }
-
-  .logo {
-    display: flex;
-    flex-direction: column;
-    text-decoration: none;
-  }
-
-  .logo-text {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--color-special);
-  }
-
-  .logo-subtitle {
-    font-size: 0.75rem;
-    color: var(--color-text-secondary);
-  }
-
-  .nav {
-    display: flex;
-    gap: var(--spacing-md);
-  }
-
-  .nav-link {
-    padding: var(--spacing-xs) var(--spacing-sm);
-    color: var(--color-text);
-    font-size: 0.9rem;
-    border-radius: 0.25rem;
-    transition: background-color 0.2s ease;
-  }
-
-  .nav-link:hover {
-    background-color: var(--color-bg-secondary);
-    color: var(--color-text);
-  }
-
-  .header-actions {
-    display: flex;
-    gap: var(--spacing-sm);
-  }
-
-  .icon-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2.5rem;
-    height: 2.5rem;
-    border: none;
-    background: none;
-    color: var(--color-text);
-    cursor: pointer;
-    border-radius: 0.5rem;
-    transition: background-color 0.2s ease;
-  }
-
-  .icon-btn:hover {
-    background-color: var(--color-bg-secondary);
-  }
-
-  /* Theme toggle icons */
+  /* Theme toggle icons - 无法用 Tailwind 直接表达的样式 */
   [data-theme="light"] .moon-icon,
   [data-theme="dark"] .sun-icon {
     display: none;
-  }
-
-  @media (max-width: 640px) {
-    .nav {
-      display: none;
-    }
-
-    .logo-subtitle {
-      display: none;
-    }
   }
 </style>
 
