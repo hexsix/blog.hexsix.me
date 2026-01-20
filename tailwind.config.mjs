@@ -45,7 +45,7 @@ export default {
       },
 
       height: {
-        header: '4rem',
+        header: '3rem',
       },
     },
   },
