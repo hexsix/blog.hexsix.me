@@ -27,7 +27,7 @@ const isActive = (path: string) => {
   href="#main-content"
   class="absolute start-16 -top-full z-50 rounded-b-lg bg-accent px-4 py-2 font-medium text-background transition-all focus:top-0"
 >
-  Skip to content
+  跳至主内容
 </a>
 
 <header id="main-header" class="sticky top-0 z-40 w-full transition-colors duration-300">
@@ -94,7 +94,7 @@ const isActive = (path: string) => {
             <a
               href="/search"
               class:list={["nav-link", { "nav-active": isActive("/search") }]}
-              title="Ir a búsqueda">Search</a
+              title="前往搜索">搜索</a
             >
           </li>
           {
@@ -124,11 +124,11 @@ const isActive = (path: string) => {
                     "nav-link",
                     { "nav-active": isActive("/galleries") },
                   ]}
-                  title="Galerías"
+                  title="相册库"
                   aria-label="galleries"
                 >
                   <IconGallery class="hidden sm:inline-block" />
-                  <span class="sm:sr-only">Galerías</span>
+                  <span class="sm:sr-only">相册库</span>
                 </LinkButton>
               </li>
             )
@@ -143,8 +143,8 @@ const isActive = (path: string) => {
             <button
               data-search-trigger
               class="nav-search-btn"
-              title="Buscar (⌘K)"
-              aria-label="Abrir búsqueda"
+              title="搜索 (⌘K)"
+              aria-label="打开搜索"
               aria-keyshortcuts="Meta+K"
             >
               <IconSearch class="size-4.5" />
@@ -157,7 +157,7 @@ const isActive = (path: string) => {
                 <button
                   id="theme-btn"
                   class="nav-icon-btn relative"
-                  title="Toggles light & dark"
+                  title="切换亮色/深色模式"
                   aria-label="auto"
                   aria-live="polite"
                 >
@@ -232,7 +232,7 @@ const isActive = (path: string) => {
                   style="--i:4"
                 >
                   <span class="mobile-nav-indicator" />
-                  <span>Galerías</span>
+                  <span>相册库</span>
                 </a>
               )
             }
@@ -246,25 +246,25 @@ const isActive = (path: string) => {
             <button
               data-search-trigger
               class="mobile-action-btn flex-1 justify-center"
-              title="Buscar (⌘K)"
-              aria-label="Abrir búsqueda"
+              title="搜索 (⌘K)"
+              aria-label="打开搜索"
             >
               <IconSearch class="size-4" />
-              <span>Search</span>
+              <span>搜索</span>
             </button>
             {
               SITE.lightAndDarkMode && (
                 <button
                   id="theme-btn-mobile"
                   class="mobile-action-btn flex-1 justify-center"
-                  title="Cambiar tema"
+                  title="切换主题"
                   aria-label="auto"
                   aria-live="polite"
                 >
                   <IconMoon class="block size-4 dark:hidden" />
                   <IconSunHigh class="hidden size-4 dark:block" />
-                  <span class="block dark:hidden">Dark mode</span>
-                  <span class="hidden dark:block">Light mode</span>
+                  <span class="block dark:hidden">深色模式</span>
+                  <span class="hidden dark:block">亮色模式</span>
                 </button>
               )
             }

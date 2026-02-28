@@ -21,6 +21,13 @@ const blog = defineCollection({
       canonicalURL: z.string().optional(),
       hideEditPost: z.boolean().optional(),
       timezone: z.string().optional(),
+      type: z.enum(["code", "article", "video", "quote", "link", "status", "page"]).optional(),
+      youtube: z.string().optional(),
+      bilibili: z.string().optional(),
+      vimeo: z.string().optional(),
+      link: z.string().url().optional(),
+      icon: z.string().optional(),
+      showDate: z.boolean().optional(),
     }),
 });
 
