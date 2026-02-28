@@ -3,28 +3,28 @@ layout: ../layouts/AboutLayout.astro
 title: "About"
 ---
 
-Bienvenido a mi rincón digital. Soy un **desarrollador** y **estudiante** apasionado por la tecnología, los videojuegos y construir cosas que vivan en internet.
+<div class="poem">
+下雨了<br/>我家的猫想你了<br/>可是<br/>我没有猫<br/>也没有你
+</div>
 
-## ¿Quién soy?
+## 关于我
 
-Me llamo Andrés, y desde que recuerdo siempre tuve curiosidad por entender cómo funcionan las cosas — desde desarmar juguetes de niño hasta desarmar código ajeno a las 2 AM. Actualmente estudio ingeniería mientras desarrollo proyectos que me retan a aprender algo nuevo cada día.
+❄️喵小六🦋，一只喜欢写代码的猫（虽然并没有猫）。常年在互联网各个角落飘着泡泡，偶尔浮出水面打个招呼。
 
-Cuando no estoy programando, probablemente estoy en algún mundo virtual explorando mapas, completando misiones o compitiendo online. Los videojuegos no solo son mi hobby, también me enseñaron a resolver problemas, trabajar en equipo y, sobre todo, a no rendirme después del intento #847.
+技能树点歪了：**摸鱼**、**睡觉**、**打游戏**——当然，也会一点代码。
 
-## Lo que hago
+## 这里有什么
 
-- **Desarrollo web** — Me encanta construir experiencias web modernas con tecnologías como Astro, React, TypeScript y todo lo que el ecosistema JavaScript tiene para ofrecer.
-- **Open Source** — Creo en el poder del código abierto. Puedes encontrar mis proyectos en [GitHub](https://github.com/0xdres/).
-- **Aprendizaje continuo** — Siempre estoy explorando nuevas herramientas, frameworks y conceptos. La tecnología evoluciona rápido y me gusta ir al ritmo.
+这是我的藏宝图，埋着一些：
 
-## Gaming
+- 折腾代码时留下的技术笔记
+- 随手记下的想法和感悟
+- 游戏、动画、二次元的只言片语
+- 以及不知道该怎么分类的什么东西
 
-Los videojuegos son parte de mi ADN. Desde RPGs épicos hasta shooters competitivos, disfruto prácticamente cualquier género. Es ese espacio donde la creatividad se encuentra con la estrategia y la diversión pura.
+## 找到我
 
-## Este blog
-
-**Devosfera** nació como un espacio para documentar mi viaje como desarrollador, compartir lo que aprendo y conectar con personas que comparten las mismas pasiones. Aquí encontrarás posts sobre desarrollo, tecnología, y alguna que otra reflexión random de madrugada.
-
-Si quieres conectar, no dudes en encontrarme en [GitHub](https://github.com/0xdres/), [X](https://x.com/avdyen) o [LinkedIn](https://www.linkedin.com/in/avdyan/). Siempre es bueno conocer gente cool de la comunidad.
-
-> _"El código es poesía, pero con más puntos y comas."_ — Yo, probablemente
+- **GitHub**：[hexsix](https://github.com/hexsix)
+- **Bilibili**：[喵喵喵喵喵喵的喵小六](https://space.bilibili.com/7036343)
+- **X / Twitter**：[@hexsixology](https://twitter.com/hexsixology)
+- **Steam**：[hexs1x](http://steamcommunity.com/id/hexs1x)
