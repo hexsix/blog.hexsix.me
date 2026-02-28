@@ -9,6 +9,8 @@ import ShareLinks from "@/components/ShareLinks.astro";
 import BackButton from "@/components/BackButton.astro";
 import BackToTopButton from "@/components/BackToTopButton.astro";
 import GalleryEmbed from "@/components/GalleryEmbed.astro";
+import VideoEmbed from "@/components/VideoEmbed.astro";
+import Giscus from "@/components/Giscus.astro";
 import { getPath } from "@/utils/getPath";
 import { slugifyStr } from "@/utils/slugify";
 import { SITE } from "@/config";
@@ -31,6 +33,10 @@ const {
   timezone,
   tags,
   hideEditPost,
+  type,
+  youtube,
+  bilibili,
+  vimeo,
 } = post.data;
 
 const { Content } = await render(post);
@@ -177,6 +183,12 @@ const nextPost =
       </div>
     </header>
 
+    {
+      type === "video" && (youtube || bilibili || vimeo) && (
+        <VideoEmbed {youtube} {bilibili} {vimeo} />
+      )
+    }
+
     <article
       id="article"
       class="app-prose mt-8 w-full max-w-app prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)"
@@ -226,6 +238,9 @@ const nextPost =
       <ShareLinks />
     </div>
 
+    <!-- Giscus 评论 -->
+    <Giscus />
+
     <!-- Decorative separator before prev/next -->
     <div class="my-6 flex items-center gap-3" aria-hidden="true">
       <div
@@ -257,7 +272,7 @@ const nextPost =
                 <polyline points="12 19 5 12 12 5" />
               </svg>
               <span class="font-cartograph text-[10px] tracking-wider text-foreground/35 uppercase">
-                Anterior
+                上一篇
               </span>
             </div>
             <span class="line-clamp-2 text-sm leading-snug font-medium text-foreground/70 transition-colors duration-200 group-hover:text-accent">
@@ -277,7 +292,7 @@ const nextPost =
             <div class="post-nav-bg" />
             <div class="flex items-center gap-1.5">
               <span class="font-cartograph text-[10px] tracking-wider text-foreground/35 uppercase">
-                Siguiente
+                下一篇
               </span>
               <svg
                 class="size-3.5 text-accent/50 transition-transform duration-300 group-hover:translate-x-1 rtl:rotate-180"

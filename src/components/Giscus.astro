@@ -1,0 +1,55 @@
+---
+// Giscus 评论组件 - 基于 GitHub Discussions
+// 配置来源: hexsix/blog.hexsix.me
+---
+
+<div id="giscus-container" class="mt-10">
+  <script
+    is:inline
+    src="https://giscus.app/client.js"
+    data-repo="hexsix/blog.hexsix.me"
+    data-repo-id="R_kgDOGh4vHw"
+    data-category="Blog Comments"
+    data-category-id="DIC_kwDOGh4vH84CAcFP"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="zh-CN"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async
+  ></script>
+</div>
+
+<script is:inline>
+  // 根据当前主题同步 Giscus 主题
+  function syncGiscusTheme() {
+    const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+    const theme = isDark ? "dark" : "light";
+    const iframe = document.querySelector("iframe.giscus-frame");
+    if (iframe) {
+      iframe.contentWindow.postMessage(
+        { giscus: { setConfig: { theme } } },
+        "https://giscus.app"
+      );
+    }
+  }
+
+  // 监听主题变化
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.attributeName === "data-theme") {
+        syncGiscusTheme();
+      }
+    });
+  });
+
+  observer.observe(document.documentElement, { attributes: true });
+
+  // 页面加载后同步一次
+  document.addEventListener("DOMContentLoaded", syncGiscusTheme);
+  document.addEventListener("astro:page-load", syncGiscusTheme);
+</script>
