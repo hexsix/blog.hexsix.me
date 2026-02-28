@@ -100,8 +100,22 @@ const totalPosts = page.total;
 
 <script>
   let cleanupController: AbortController | null = null;
-  
+  let pendingIdleId: number | null = null;
+
+  function cancelPendingIdle() {
+    if (pendingIdleId === null) return;
+    if (window.cancelIdleCallback) {
+      window.cancelIdleCallback(pendingIdleId);
+    } else {
+      clearTimeout(pendingIdleId);
+    }
+    pendingIdleId = null;
+  }
+
   function initPostsPage() {
+    // Cancel any stale idle callback left over from a previous page visit
+    cancelPendingIdle();
+
     if (cleanupController) cleanupController.abort();
     cleanupController = new AbortController();
     const { signal } = cleanupController;
@@ -127,18 +141,26 @@ const totalPosts = page.total;
     const container = document.querySelector("#posts-pagefind");
     if (!container || container.childElementCount > 0) return;
 
-    const onIdle = window.requestIdleCallback || (cb => setTimeout(cb, 1));
-    onIdle(async () => {
+    const scheduleIdle = window.requestIdleCallback
+      ? (cb: () => void) => window.requestIdleCallback(cb)
+      : (cb: () => void) => setTimeout(cb, 1) as unknown as number;
+
+    pendingIdleId = scheduleIdle(async () => {
+      pendingIdleId = null;
+
+      // Re-check: DOM may have been swapped since we queued
+      const el = document.querySelector("#posts-pagefind");
+      if (!el || el.childElementCount > 0) return;
+
       // @ts-expect-error
       const { PagefindUI } = await import("@pagefind/default-ui");
-      
+
       if (import.meta.env.DEV) {
-        container.innerHTML = `
+        el.innerHTML = `
           <div class="bg-muted/75 rounded p-4 text-sm mb-4 border border-border">
             <p><strong>Dev Mode:</strong> La búsqueda intentará usar el índice construido más reciente. Si no ves resultados, ejecuta <code>pnpm run build</code> primero.</p>
           </div>
         `;
-        // Removed the early return to allow pagefind to attempt loading the local index
       }
 
       new PagefindUI({
@@ -148,9 +170,9 @@ const totalPosts = page.total;
       });
 
       // Toggle default posts grid visibility when typing
-      const input = container.querySelector(".pagefind-ui__search-input") as HTMLInputElement;
+      const input = el.querySelector(".pagefind-ui__search-input") as HTMLInputElement;
       const defaultContainer = document.querySelector("[data-default-posts-container]") as HTMLElement;
-      
+
       if (input && defaultContainer) {
         const toggleVisibility = () => {
           const hasValue = input.value.trim().length > 0;
@@ -162,9 +184,9 @@ const totalPosts = page.total;
         };
 
         input.addEventListener("input", toggleVisibility, { signal });
-        
+
         // Handle clear button
-        const clearBtn = container.querySelector(".pagefind-ui__search-clear");
+        const clearBtn = el.querySelector(".pagefind-ui__search-clear");
         if (clearBtn) {
           clearBtn.addEventListener("click", () => {
             requestAnimationFrame(() => toggleVisibility());
@@ -179,20 +201,16 @@ const totalPosts = page.total;
           e.stopPropagation();
           if (input) {
             input.focus();
-            // Scroll to the search box if it's not visible
             input.scrollIntoView({ behavior: 'smooth', block: 'center' });
           }
         }
       };
-      
-      // Use capture mode to intercept before the global modal listener
-      document.addEventListener("keydown", handleCmdK, { signal, capture: true });
 
+      document.addEventListener("keydown", handleCmdK, { signal, capture: true });
     });
   }
 
   document.addEventListener("astro:page-load", initPostsPage);
-  document.addEventListener("astro:after-swap", initPostsPage);
 </script>
 
 <style>
