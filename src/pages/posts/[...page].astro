@@ -20,7 +20,7 @@ const { page } = Astro.props;
 const totalPosts = page.total;
 ---
 
-<Layout title={`Posts | ${SITE.title}`}>
+<Layout title={`文章 | ${SITE.title}`}>
   <Header />
   <Breadcrumb />
   <main id="main-content" class="app-layout pb-4">
@@ -35,7 +35,7 @@ const totalPosts = page.total;
           <span class="glow-text">Posts</span>
         </h1>
         <p class="mt-3 max-w-lg text-foreground/70 italic">
-          所有已发布的文章。
+          代码是水的逻辑，思考是升腾的气泡。
         </p>
         <div class="mt-4 flex flex-wrap items-center gap-2">
           <span class="hero-badge">{totalPosts} 篇文章</span>
@@ -72,23 +72,23 @@ const totalPosts = page.total;
                 stroke-linecap="round"
                 stroke-linejoin="round"
               >
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                <polyline points="14 2 14 8 20 8"></polyline>
-                <line x1="9" y1="15" x2="15" y2="15"></line>
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+                <line x1="9" y1="15" x2="15" y2="15" />
               </svg>
             </div>
             <h3 class="empty-title">暂无文章</h3>
-            <p class="empty-desc">
-              稍后回来查看即将发布的文章。
-            </p>
+            <p class="empty-desc">稍后回来查看即将发布的文章。</p>
           </div>
         ) : (
           <ul class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {page.data.map((data: any) => <Card {...data} />)}
+            {page.data.map((data: any) => (
+              <Card {...data} />
+            ))}
           </ul>
         )
       }
-      
+
       <div data-pagination-wrapper>
         <Pagination {page} />
       </div>
@@ -122,19 +122,29 @@ const totalPosts = page.total;
 
     // Hero mouse glow
     const hero = document.querySelector("[data-posts-hero]") as HTMLElement;
-    const heroMouse = document.querySelector("[data-posts-mouse]") as HTMLElement;
+    const heroMouse = document.querySelector(
+      "[data-posts-mouse]"
+    ) as HTMLElement;
     if (hero && heroMouse) {
-      hero.addEventListener("mousemove", e => {
-        requestAnimationFrame(() => {
-          const rect = hero.getBoundingClientRect();
-          heroMouse.style.setProperty("--mx", `${e.clientX - rect.left}px`);
-          heroMouse.style.setProperty("--my", `${e.clientY - rect.top}px`);
-          heroMouse.style.opacity = "1";
-        });
-      }, { signal });
-      hero.addEventListener("mouseleave", () => {
-        heroMouse.style.opacity = "0";
-      }, { signal });
+      hero.addEventListener(
+        "mousemove",
+        e => {
+          requestAnimationFrame(() => {
+            const rect = hero.getBoundingClientRect();
+            heroMouse.style.setProperty("--mx", `${e.clientX - rect.left}px`);
+            heroMouse.style.setProperty("--my", `${e.clientY - rect.top}px`);
+            heroMouse.style.opacity = "1";
+          });
+        },
+        { signal }
+      );
+      hero.addEventListener(
+        "mouseleave",
+        () => {
+          heroMouse.style.opacity = "0";
+        },
+        { signal }
+      );
     }
 
     // Initialize Pagefind local search
@@ -170,8 +180,12 @@ const totalPosts = page.total;
       });
 
       // Toggle default posts grid visibility when typing
-      const input = el.querySelector(".pagefind-ui__search-input") as HTMLInputElement;
-      const defaultContainer = document.querySelector("[data-default-posts-container]") as HTMLElement;
+      const input = el.querySelector(
+        ".pagefind-ui__search-input"
+      ) as HTMLInputElement;
+      const defaultContainer = document.querySelector(
+        "[data-default-posts-container]"
+      ) as HTMLElement;
 
       if (input && defaultContainer) {
         const toggleVisibility = () => {
@@ -188,9 +202,13 @@ const totalPosts = page.total;
         // Handle clear button
         const clearBtn = el.querySelector(".pagefind-ui__search-clear");
         if (clearBtn) {
-          clearBtn.addEventListener("click", () => {
-            requestAnimationFrame(() => toggleVisibility());
-          }, { signal });
+          clearBtn.addEventListener(
+            "click",
+            () => {
+              requestAnimationFrame(() => toggleVisibility());
+            },
+            { signal }
+          );
         }
       }
 
@@ -201,12 +219,15 @@ const totalPosts = page.total;
           e.stopPropagation();
           if (input) {
             input.focus();
-            input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            input.scrollIntoView({ behavior: "smooth", block: "center" });
           }
         }
       };
 
-      document.addEventListener("keydown", handleCmdK, { signal, capture: true });
+      document.addEventListener("keydown", handleCmdK, {
+        signal,
+        capture: true,
+      });
     });
   }
 
@@ -385,15 +406,19 @@ const totalPosts = page.total;
     background: color-mix(in srgb, var(--accent) 8%, transparent);
     color: var(--accent);
     margin-bottom: 1.5rem;
-    box-shadow: 
+    box-shadow:
       0 0 0 1px color-mix(in srgb, var(--accent) 15%, transparent),
       0 10px 30px -10px color-mix(in srgb, var(--accent) 25%, transparent);
     animation: empty-float 4s ease-in-out infinite alternate;
   }
 
   @keyframes empty-float {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-8px); }
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(-8px);
+    }
   }
 
   .empty-title {
