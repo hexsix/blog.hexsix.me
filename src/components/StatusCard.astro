@@ -1,0 +1,44 @@
+---
+interface Props {
+  icon?: string;
+}
+
+const { icon } = Astro.props;
+
+const iconMap: Record<string, string> = {
+  "fa-rocket": "🚀",
+  "fa-wrench": "🔧",
+  "fa-star": "⭐",
+  "fa-heart": "❤️",
+  "fa-check": "✅",
+  "fa-info": "ℹ️",
+  "fa-warning": "⚠️",
+  "fa-fire": "🔥",
+  "fa-tag": "🏷️",
+  "fa-bell": "🔔",
+};
+
+const emoji = icon ? (iconMap[icon] ?? "📡") : "📡";
+---
+
+<div class="my-8 overflow-hidden rounded-2xl border border-accent/30 bg-accent/5">
+  <!-- 顶部标题栏 -->
+  <div class="flex items-center gap-2.5 border-b border-accent/20 bg-accent/10 px-4 py-2.5">
+    <span class="text-base" aria-hidden="true">{emoji}</span>
+    <span class="font-cartograph text-xs font-semibold tracking-widest text-accent uppercase">
+      站点动态
+    </span>
+    <div class="ml-auto flex items-center gap-1">
+      <span
+        class="size-1.5 animate-pulse rounded-full bg-accent/70 shadow-[0_0_6px_var(--color-accent)]"
+      ></span>
+    </div>
+  </div>
+
+  <!-- 内容区域 -->
+  <div
+    class="px-5 py-4 text-base leading-relaxed text-foreground/80 [&_code]:rounded [&_code]:bg-accent/10 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:font-cartograph [&_code]:text-sm [&_code]:text-accent [&_p]:my-0"
+  >
+    <slot />
+  </div>
+</div>

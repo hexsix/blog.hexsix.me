@@ -5,6 +5,7 @@ type: "link"
 tags: ["bangumi", "anime"]
 link: "https://rinshankaiho.fun"
 description: "岭上开花真TM开心啊！"
+featured: true
 ---
 
 岭上开花真TM开心啊！
