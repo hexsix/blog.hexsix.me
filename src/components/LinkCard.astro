@@ -1,0 +1,63 @@
+---
+interface Props {
+  link: string;
+  title: string;
+}
+const { link, title } = Astro.props;
+
+let domain = "";
+try {
+  domain = new URL(link).hostname;
+} catch {}
+---
+
+<a
+  href={link}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="group my-8 flex items-center gap-4 rounded-2xl border border-border/25 bg-muted/10 px-6 py-5 no-underline transition-all duration-300 hover:border-accent/40 hover:bg-accent/5 hover:shadow-lg hover:shadow-accent/5"
+>
+  <!-- 链接图标 -->
+  <div
+    class="flex size-10 shrink-0 items-center justify-center rounded-xl border border-accent/20 bg-accent/10 text-accent transition-colors group-hover:bg-accent/20"
+  >
+    <svg
+      class="size-5"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+      <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+    </svg>
+  </div>
+
+  <!-- 文字内容 -->
+  <div class="min-w-0 flex-1">
+    <div
+      class="font-medium text-foreground/90 transition-colors group-hover:text-accent"
+    >
+      {title}
+    </div>
+    <div class="mt-0.5 truncate font-cartograph text-xs text-foreground/40">
+      {domain}
+    </div>
+  </div>
+
+  <!-- 外链箭头 -->
+  <svg
+    class="size-4 shrink-0 text-foreground/30 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent/60"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <line x1="7" y1="17" x2="17" y2="7"></line>
+    <polyline points="7 7 17 7 17 17"></polyline>
+  </svg>
+</a>

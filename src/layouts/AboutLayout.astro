@@ -404,28 +404,6 @@ const { frontmatter } = Astro.props;
     opacity: 1;
   }
 
-  /* Poem block */
-  .about-content :global(.poem) {
-    text-align: center;
-    font-style: italic;
-    line-height: 2.4;
-    letter-spacing: 0.08em;
-    color: color-mix(in srgb, var(--color-foreground) 70%, transparent);
-    padding: 2rem 1rem;
-    margin: 0 0 2rem;
-  }
-  .about-content :global(.poem::before),
-  .about-content :global(.poem::after) {
-    content: "✦";
-    display: block;
-    text-align: center;
-    font-style: normal;
-    font-size: 0.75rem;
-    color: var(--color-accent);
-    opacity: 0.5;
-    margin: 0.5rem 0;
-  }
-
   /* Content styling */
   .about-content {
     position: relative;

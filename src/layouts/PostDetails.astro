@@ -10,6 +10,8 @@ import BackButton from "@/components/BackButton.astro";
 import BackToTopButton from "@/components/BackToTopButton.astro";
 import GalleryEmbed from "@/components/GalleryEmbed.astro";
 import VideoEmbed from "@/components/VideoEmbed.astro";
+import QuoteCard from "@/components/QuoteCard.astro";
+import LinkCard from "@/components/LinkCard.astro";
 import Giscus from "@/components/Giscus.astro";
 import { getPath } from "@/utils/getPath";
 import { slugifyStr } from "@/utils/slugify";
@@ -37,6 +39,7 @@ const {
   youtube,
   bilibili,
   vimeo,
+  link,
 } = post.data;
 
 const { Content } = await render(post);
@@ -189,12 +192,31 @@ const nextPost =
       )
     }
 
-    <article
-      id="article"
-      class="app-prose mt-8 w-full max-w-app prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)"
-    >
-      <Content components={{ GalleryEmbed }} />
-    </article>
+    {type === "link" && link && <LinkCard {link} {title} />}
+
+    {
+      type === "status" && (
+        <div class="my-4 flex items-center gap-2 rounded-xl border border-accent/20 bg-accent/5 px-4 py-3">
+          <span class="text-lg" aria-hidden="true">🚀</span>
+          <span class="font-cartograph text-xs text-foreground/40">站点动态</span>
+        </div>
+      )
+    }
+
+    {
+      type === "quote" ? (
+        <QuoteCard author={author}>
+          <Content components={{ GalleryEmbed }} />
+        </QuoteCard>
+      ) : (
+        <article
+          id="article"
+          class="app-prose mt-8 w-full max-w-app prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)"
+        >
+          <Content components={{ GalleryEmbed }} />
+        </article>
+      )
+    }
 
     <!-- ═══════ Post footer section ═══════ -->
     <!-- ═══════ Post footer section ═══════ -->

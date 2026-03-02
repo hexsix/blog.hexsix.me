@@ -198,3 +198,36 @@ i {
   background: color-mix(in srgb, var(--accent) 15%, transparent);
   box-shadow: 0 4px 15px color-mix(in srgb, var(--accent) 15%, transparent);
 }
+
+/* Poem / Quote block — reusable across About page and QuoteCard */
+.poem {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto 2rem;
+  text-align: left;
+  font-style: italic;
+  line-height: 2.4;
+  letter-spacing: 0.08em;
+  color: color-mix(in srgb, var(--color-foreground) 70%, transparent);
+  padding: 2rem 1rem;
+}
+.poem::before,
+.poem::after {
+  content: "✦";
+  display: block;
+  text-align: center;
+  font-style: normal;
+  font-size: 0.75rem;
+  color: var(--color-accent);
+  opacity: 0.5;
+  margin: 0.5rem 0;
+}
+.poem-author {
+  display: block;
+  text-align: right;
+  font-style: normal;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  opacity: 0.6;
+}

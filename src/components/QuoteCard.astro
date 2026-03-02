@@ -1,0 +1,11 @@
+---
+interface Props {
+  author?: string;
+}
+const { author } = Astro.props;
+---
+
+<div class="poem">
+  <slot />
+  {author && <cite class="poem-author">— {author}</cite>}
+</div>
