@@ -4,6 +4,7 @@ import { SOCIALS } from "@/constants";
 import LinkButton from "./LinkButton.astro";
 import { SITE } from "@/config";
 import Logo from "@/assets/logo/devosfera.svg";
+import IconGitHub from "@/assets/icons/IconGitHub.svg";
 
 const currentYear = new Date().getFullYear();
 
@@ -85,7 +86,7 @@ const { noMarginTop = false, class: className, ...attrs } = Astro.props;
         {SITE.title}.
       </p>
       <p class="font-cartograph text-[11px] tracking-wide opacity-30">
-        <span class="text-accent">&#9829;</span> 吐泡泡
+        <span class="text-accent">&#9829;</span> 吐泡泡 &nbsp;<a href="https://github.com/0xdres/astro-devosfera" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 hover:opacity-60 transition-opacity underline underline-offset-2"><IconGitHub class="size-3 stroke-current" /> astro-devosfera</a>
       </p>
     </div>
   </div>
