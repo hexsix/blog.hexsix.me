@@ -158,12 +158,17 @@ const totalPosts = page.total;
     pendingIdleId = scheduleIdle(async () => {
       pendingIdleId = null;
 
+      if (signal.aborted) return;
+
       // Re-check: DOM may have been swapped since we queued
       const el = document.querySelector("#posts-pagefind");
       if (!el || el.childElementCount > 0) return;
 
       // @ts-expect-error
       const { PagefindUI } = await import("@pagefind/default-ui");
+
+      // Navigation may have occurred while the module was loading (first load, uncached)
+      if (signal.aborted || el.childElementCount > 0) return;
 
       if (import.meta.env.DEV) {
         el.innerHTML = `

@@ -238,8 +238,17 @@ import "@pagefind/default-ui/css/ui.css";
       const onIdle =
         window.requestIdleCallback || ((cb: () => void) => setTimeout(cb, 1));
       onIdle(async () => {
+        if (signal.aborted) return;
+
+        // Ensure Pagefind UI does not re-initialize on the same element
+        if (container.querySelector(".pagefind-ui")) return;
+
         // @ts-expect-error — Missing types for @pagefind/default-ui package.
         const { PagefindUI } = await import("@pagefind/default-ui");
+
+        // Navigation may have occurred while the module was loading (first load, uncached)
+        if (signal.aborted || container.querySelector(".pagefind-ui")) return;
+
         new PagefindUI({
           element: "#modal-pagefind-search",
           showImages: false,
@@ -326,8 +335,7 @@ import "@pagefind/default-ui/css/ui.css";
   }
 
   // Initialize on load and on view transitions navigation
-  initSearchModal();
-  document.addEventListener("astro:after-swap", initSearchModal);
+  document.addEventListener("astro:page-load", initSearchModal);
 </script>
 
 <style>

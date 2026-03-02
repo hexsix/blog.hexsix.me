@@ -132,6 +132,9 @@ const backUrl = SITE.showBackButton ? `${Astro.url.pathname}` : "/";
     const onIdle = window.requestIdleCallback || (cb => setTimeout(cb, 1));
 
     onIdle(async () => {
+      // Prevent double initialization
+      if (pageFindSearch.childElementCount > 0) return;
+
       // @ts-expect-error — Missing types for @pagefind/default-ui package.
       const { PagefindUI } = await import("@pagefind/default-ui");
 
@@ -178,12 +181,7 @@ const backUrl = SITE.showBackButton ? `${Astro.url.pathname}` : "/";
     });
   }
 
-  document.addEventListener("astro:after-swap", () => {
-    const pagefindSearch = document.querySelector("#pagefind-search");
-    if (pagefindSearch && pagefindSearch.querySelector("form")) return;
-    initSearch();
-  });
-  initSearch();
+  document.addEventListener("astro:page-load", initSearch);
 </script>
 
 <style>
