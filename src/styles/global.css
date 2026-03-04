@@ -10,6 +10,7 @@ html[data-theme="light"] {
   --accent: #c8839c;
   --muted: #e8d0d8;
   --border: #b5c9d9;
+  --cursor-glow-strength: 1.8;
 }
 
 html[data-theme="dark"] {
@@ -18,6 +19,7 @@ html[data-theme="dark"] {
   --accent: #d98ca6;
   --muted: #2e1d28;
   --border: #4a6b85;
+  --cursor-glow-strength: 1;
 }
 
 @theme inline {

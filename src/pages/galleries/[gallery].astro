@@ -63,7 +63,7 @@ const hasCoverInFolder = coverImage
   : false;
 ---
 
-<Layout title={`${title} | Galerías | ${SITE.title}`} description={description}>
+<Layout title={`${title} | Galleries | ${SITE.title}`} description={description}>
   <Header />
   <Breadcrumb />
   <main id="main-content" class="app-layout pb-16">
@@ -88,8 +88,7 @@ const hasCoverInFolder = coverImage
         )
       }
       <p class="mt-4 text-sm text-foreground/50">
-        {images.length}
-        {images.length === 1 ? "imagen" : "imágenes"}
+        共 {images.length} 张图片
       </p>
     </header>
 
@@ -116,14 +115,14 @@ const hasCoverInFolder = coverImage
           class="gallery-grid mt-6"
           id="gallery-grid"
           role="list"
-          aria-label={`Imágenes de ${title}`}
+          aria-label={`${title} 的图片`}
         >
           {images.map((img, idx) => (
             <li>
               <button
                 class="gallery-item group"
                 data-index={idx}
-                aria-label={`Ver imagen: ${img.alt}`}
+                aria-label={`查看图片：${img.alt}`}
                 type="button"
               >
                 <Image
@@ -143,7 +142,7 @@ const hasCoverInFolder = coverImage
         </ul>
       ) : (
         <p class="mt-12 text-center text-foreground/50 italic">
-          Esta galería todavía no tiene imágenes.
+          这个相册暂时没有图片。
         </p>
       )
     }
@@ -155,13 +154,13 @@ const hasCoverInFolder = coverImage
 <dialog
   id="lightbox"
   class="lightbox"
-  aria-label="Visor de imagen"
+  aria-label="图片查看器"
   aria-modal="true"
 >
   <button
     class="lightbox-close"
     id="lightbox-close"
-    aria-label="Cerrar"
+    aria-label="关闭"
     type="button"
   >
     <svg
@@ -182,7 +181,7 @@ const hasCoverInFolder = coverImage
   <button
     class="lightbox-nav lightbox-prev"
     id="lightbox-prev"
-    aria-label="Anterior"
+    aria-label="上一张"
     type="button"
   >
     <svg
@@ -207,7 +206,7 @@ const hasCoverInFolder = coverImage
   <button
     class="lightbox-nav lightbox-next"
     id="lightbox-next"
-    aria-label="Siguiente"
+    aria-label="下一张"
     type="button"
   >
     <svg
