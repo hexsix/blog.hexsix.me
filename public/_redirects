@@ -1,0 +1,6 @@
+/article/*  /posts/:splat  301
+/code/*     /posts/:splat  301
+/video/*    /posts/:splat  301
+/quote/*    /posts/:splat  301
+/link/*     /posts/:splat  301
+/status/*   /posts/:splat  301
