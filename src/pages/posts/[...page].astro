@@ -1,5 +1,6 @@
 ---
 import type { GetStaticPaths } from "astro";
+import type { CollectionEntry } from "astro:content";
 import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
@@ -97,7 +98,7 @@ const metaDesc =
           </div>
         ) : (
           <ul class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {page.data.map((data: any) => (
+            {page.data.map((data: CollectionEntry<"blog">) => (
               <Card {...data} />
             ))}
           </ul>
@@ -179,7 +180,7 @@ const metaDesc =
       const el = document.querySelector("#posts-pagefind");
       if (!el || el.childElementCount > 0) return;
 
-      // @ts-expect-error
+      // @ts-expect-error @pagefind/default-ui 不带类型声明
       const { PagefindUI } = await import("@pagefind/default-ui");
 
       // Navigation may have occurred while the module was loading (first load, uncached)

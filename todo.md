@@ -66,6 +66,7 @@ git fetch https://github.com/0xdres/astro-devosfera.git main:refs/remotes/upstre
       验证：新旧两次构建都是 156 页，逐页比对可见文本 0 处差异，
       head 里的 meta/link 除 generator 版本号外只有一页的 `"` 实体
       从 `&#34;` 变成 `&quot;`，JSON-LD 156 页全部一致。
+      （同日又因 Dependabot 继续升到了 Astro 7，见下方条目。）
 
 - [ ] **每标签 OG 图**（上游 `e5a0e29`）
       新增 `src/utils/og-templates/tag.js` + `/tags/[tag]/og.png`，纯增量。
@@ -89,17 +90,37 @@ git fetch https://github.com/0xdres/astro-devosfera.git main:refs/remotes/upstre
       注意：改完配置后光跑 `pnpm install` 不会生效 —— 依赖图没变时 pnpm 走 no-op，
       不会重新链接包也就不会重跑 build script。需要 `pnpm rebuild esbuild sharp`
       或删掉 `node_modules` 重装才能验证。
-- [ ] **再升 Astro 7**（上游还在 6，这条是本地自己的）
-      写这条时 npm 上 astro 已到 7.2.4。6 → 7 要顺带过一遍：
-      `@astrojs/mdx` 7.x 多了 `@astrojs/markdown-satteri` 这个 peer；
-      `markdown.remarkPlugins` 在 6 里只是弃用警告，7 里大概率直接移除
-      （已经提前迁到 `processor: unified({...})`，这块不欠账）。
+- [x] **再升 Astro 7 + 清 Dependabot alerts**（2026-08-20 完成）
+      起因：GitHub 报了一堆 Dependabot alert。本地没装 `gh`，用 `pnpm audit`
+      代查（同一个 GitHub Advisory Database），升级前 45 条：3 low / 14 moderate / 28 high。
+      其中三条是 astro 自身，patched 版本分别是 `>=7.0.4` / `>=7.0.6` / `>=7.1.0`
+      —— **停在 Astro 6 无解**，所以直接上了 7.2.4。
+      同批升的：mdx 5 → 7（多一个 `@astrojs/markdown-satteri` peer，astro 7 自己也依赖它）、
+      sharp 0.34 → 0.35（`<0.35.0` 有 high）、tailwind 4.1 → 4.3、
+      eslint 10.0 → 10.8、typescript-eslint 8.55 → 8.67、eslint-plugin-astro 1.6 → 3.1。
+      `markdown.processor: unified()` 在 7 上照常工作，`@astrojs/markdown-remark`
+      仍单独发版（astro 7 默认引擎换成 satteri，remark 链路是显式 opt-in）。
+      剩下 12 条是被父包锁死的传递依赖，用 `pnpm.overrides` 顶版清零：
+      `ajv@8` `fast-uri@3` `flatted` `mdast-util-to-hast` `picomatch@2` `smol-toml`。
+      带 `@<major>` 选择器是因为 picomatch/ajv 树里同时存在多个大版本，
+      不限定会误伤需要新版本的消费者。**最终 `pnpm audit`：0 条。**
+      顺带：eslint-plugin-astro 3.x 修好了 `Layout.astro` 的 parsing error，
+      再修掉 `posts/[...page].astro` 里的 `any` 和空 `@ts-expect-error`，
+      `pnpm lint` 现在全绿。
+      **唯一残留的 peer 警告**：`eslint-plugin-jsx-a11y@6.10.2`（eslint-plugin-astro 3.x
+      的 peer）声明只支持到 eslint 9，而本地是 10。它是 latest，上游没更新
+      peer range 而已，只是 WARN。
 
-- [ ] **eslint peer 不匹配**（历史遗留，非本次引入）
-      `eslint@10` vs `typescript-eslint@8.55` 要求的 `^8.57 || ^9`，
-      每次 `pnpm install` 都会 WARN。`pnpm lint` 目前有 3 个 error
-      （`Layout.astro` 的 parsing error 是 eslint-plugin-astro 解析限制，
-      另两个在 `posts/[...page].astro`），升级前后数量一致。
+- [x] **Astro 7 的空白折叠变化**（2026-08-20，升级时发现并修复）
+      Astro 7 收紧了 HTML 空白折叠，文本位置上"靠换行产生空格"的写法会失效。
+      本仓库中招一处：`Footer.astro` 的
+      `&copy; {currentYear}` ⏎ `{SITE.title}.` 渲染成了 `© 2026Bubble.`，
+      已改成同一行显式空格。
+      另一处 `index.astro:130` 的 `[{n}/` ⏎ `{total}]`，
+      Astro 6 渲染为 `[6/ 49]`（多一个空格），7 渲染为 `[6/49]` —— 后者才是本意，不用改。
+      排查方法留档：写了个扫描器找"文本位置上的相邻表达式"
+      （要先剔除 `<style>`/`<script>` 块和标签内的多行属性，否则全是误报），
+      自检两个已知样例后全库只剩这两处。
 
 - [ ] `cedfcbe` — 全局音频 store + 顶栏迷你播放器（`config.ts` 里 `introAudio.enabled: false`，暂无意义）
 
