@@ -149,16 +149,16 @@ git fetch https://github.com/0xdres/astro-devosfera.git main:refs/remotes/upstre
 
 - [ ] `cedfcbe` — 全局音频 store + 顶栏迷你播放器（`config.ts` 里 `introAudio.enabled: false`，暂无意义）
 
-- [ ] **站点默认 OG 图仍是上游的宣传拼图**（待你定夺）
-      `config.ts` 的 `ogImage: "devosfera-og.webp"` 指向
-      `public/devosfera-og.webp` —— 上游的产品截图拼贴，画面里写着
-      "Devosfera"、西班牙语文案和 AstroPaper 的演示文章。
-      首页、归档、关于、画廊等所有非文章非标签页分享出去都是这张。
-      本站自己的 `/og.png`（写着 Bubble / 小六家的藏宝图 / blog.hexsix.me）
-      构建时已经生成，但因为 `SITE.ogImage` 有值而从未被引用。
-      把 `ogImage` 置空即可切过去。另：`Layout.astro` 里
-      `og:image:width/height` 硬编码 1200×630，而那张 webp 是 2560×1440，
-      现在这组尺寸是错的；切到 `/og.png` 后正好对上。
+- [x] **站点默认 OG 图切回自家生成的那张**（2026-08-20 完成）
+      原先 `config.ts` 的 `ogImage: "devosfera-og.webp"` 指向上游的产品
+      截图拼贴（画面里写着 "Devosfera"、西班牙语文案、AstroPaper 演示文章），
+      首页 / 归档 / 关于 / 画廊 / 搜索 / 404 分享出去全是那张。
+      置空后回退到构建时生成的 `/og.png`（Bubble / 小六家的藏宝图 / 域名）。
+      顺带把 `og:image:width/height` 的硬编码 1200×630 也修对了 ——
+      那张 webp 是 2560×1440，尺寸声明一直是错的；现在三类图
+      （站点 / 文章 / 标签）实测均为 1200×630，声明与实际一致。
+      **遗留**：`public/devosfera-og.webp`（152KB）已无人引用，
+      但仍会被复制进 `dist/` 一起部署。要不要删你定。
 
 ## 已确认不做
 

@@ -4,7 +4,7 @@ export const SITE = {
   profile: "https://github.com/hexsix",
   desc: "小六家的藏宝图",
   title: "Bubble",
-  ogImage: "devosfera-og.webp", // ubicado en la carpeta public
+  ogImage: "", // 置空则回退到构建时生成的 /og.png（见 og-templates/site.js）
   lightAndDarkMode: true,
   postPerIndex: 6,
   postPerPage: 8,
