@@ -380,7 +380,10 @@ const isActive = (path: string) => {
     font-weight: 500;
     color: var(--foreground);
     border-radius: 0.5rem;
-    transition: all 0.2s ease;
+    transition:
+      color 0.2s ease,
+      background-color 0.2s ease,
+      box-shadow 0.2s ease;
   }
 
   .nav-link:focus-visible,
@@ -422,7 +425,10 @@ const isActive = (path: string) => {
     width: 2rem;
     height: 2rem;
     border-radius: 0.5rem;
-    transition: all 0.2s ease;
+    transition:
+      color 0.2s ease,
+      background-color 0.2s ease,
+      box-shadow 0.2s ease;
     color: var(--foreground);
   }
 
@@ -444,7 +450,11 @@ const isActive = (path: string) => {
     border-radius: 0.5rem;
     background: color-mix(in srgb, var(--muted) 40%, transparent);
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition:
+      color 0.2s ease,
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
   }
 
   .nav-search-btn:hover {
@@ -467,7 +477,9 @@ const isActive = (path: string) => {
     background: color-mix(in srgb, var(--background) 90%, transparent);
     color: var(--muted-foreground);
     box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-    transition: all 0.2s ease;
+    transition:
+      color 0.2s ease,
+      border-color 0.2s ease;
   }
 
   .nav-search-btn:hover .nav-kbd {
@@ -487,7 +499,9 @@ const isActive = (path: string) => {
     border-radius: 0.625rem;
     border: 1px solid transparent;
     background: transparent;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition:
+      background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
   }
 
@@ -517,7 +531,12 @@ const isActive = (path: string) => {
     height: 2px;
     border-radius: 2px;
     background: var(--foreground);
-    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    transition:
+      top 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+      width 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+      transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+      background-color 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .hamburger-line--1 {
@@ -570,7 +589,13 @@ const isActive = (path: string) => {
     background: rgba(0, 0, 0, 0);
     backdrop-filter: blur(0px);
     -webkit-backdrop-filter: blur(0px);
-    transition: all 0.4s ease;
+    /* 刻意不含 pointer-events：它是离散属性，混在 all 里会在 50% 处才翻转，
+       等于遮罩要等 200ms 才可点 */
+    transition:
+      background-color 0.4s ease,
+      backdrop-filter 0.4s ease,
+      -webkit-backdrop-filter 0.4s ease,
+      opacity 0.4s ease;
     opacity: 0;
     pointer-events: none;
   }
@@ -592,7 +617,11 @@ const isActive = (path: string) => {
     opacity: 0;
     transform: translateY(-8px) scale(0.98);
     transform-origin: top center;
-    transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+    /* visibility 必须保留：去掉的话关闭时面板会瞬间消失，没有淡出过程 */
+    transition:
+      opacity 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+      transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+      visibility 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
     visibility: hidden;
   }
 
@@ -624,7 +653,12 @@ const isActive = (path: string) => {
     font-weight: 500;
     color: var(--foreground);
     border-radius: 0.75rem;
-    transition: all 0.1s ease-out; /* Snappier hover */
+    /* Snappier hover */
+    transition:
+      color 0.1s ease-out,
+      background-color 0.1s ease-out,
+      opacity 0.1s ease-out,
+      transform 0.1s ease-out;
     /* Stagger entrance */
     opacity: 0;
     transform: translateY(8px);
@@ -632,7 +666,9 @@ const isActive = (path: string) => {
 
   .mobile-menu.is-open .mobile-nav-link {
     /* For the entrance animation, override the transition to use the entrance speed */
-    transition: all 0.25s ease;
+    transition:
+      opacity 0.25s ease,
+      transform 0.25s ease;
     opacity: 1;
     transform: translateY(0);
     transition-delay: calc(0.08s * var(--i, 0) + 0.12s);
@@ -654,7 +690,7 @@ const isActive = (path: string) => {
     height: 6px;
     border-radius: 50%;
     background: color-mix(in srgb, var(--foreground) 20%, transparent);
-    transition: all 0.1s ease-out; /* Snappier indicator */
+    transition: background-color 0.1s ease-out; /* Snappier indicator */
     flex-shrink: 0;
   }
 
@@ -686,7 +722,9 @@ const isActive = (path: string) => {
     /* Stagger delay (after nav links) */
     opacity: 0;
     transform: translateY(6px);
-    transition: all 0.3s ease;
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease;
   }
 
   .mobile-menu.is-open .mobile-menu-actions {
@@ -707,7 +745,10 @@ const isActive = (path: string) => {
     border: 1px solid color-mix(in srgb, var(--border) 20%, transparent);
     background: color-mix(in srgb, var(--background) 50%, transparent);
     backdrop-filter: blur(8px);
-    transition: all 0.2s ease;
+    transition:
+      color 0.2s ease,
+      background-color 0.2s ease,
+      border-color 0.2s ease;
     cursor: pointer;
   }
 
@@ -733,24 +774,36 @@ const isActive = (path: string) => {
 
     if (!header || !navWrap || !borderLine) return;
 
+    // 记住上一次的状态：滚动事件每秒可达上百次，但吸顶与否只在
+    // 越过阈值的那一刻才变，其余时候完全不需要碰 DOM
+    let scrolled: boolean | null = null;
+
+    const applyScrollState = () => {
+      const next = window.scrollY > 15;
+      if (next === scrolled) return;
+      scrolled = next;
+
+      header.classList.toggle("header-scrolled", next);
+      navWrap.classList.toggle("sm:py-5", !next);
+      navWrap.classList.toggle("sm:py-3", next);
+      borderLine.classList.toggle("opacity-0", !next);
+      borderLine.classList.toggle("opacity-100", next);
+    };
+
+    // rAF 节流：把 scrollY 的读取与 class 写入合并到下一帧，
+    // 避免同一帧内被事件反复触发造成的样式重算
+    let ticking = false;
     const handleScroll = () => {
-      if (window.scrollY > 15) {
-        header.classList.add("header-scrolled");
-        navWrap.classList.remove("sm:py-5");
-        navWrap.classList.add("sm:py-3");
-        borderLine.classList.remove("opacity-0");
-        borderLine.classList.add("opacity-100");
-      } else {
-        header.classList.remove("header-scrolled");
-        navWrap.classList.add("sm:py-5");
-        navWrap.classList.remove("sm:py-3");
-        borderLine.classList.add("opacity-0");
-        borderLine.classList.remove("opacity-100");
-      }
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        applyScrollState();
+        ticking = false;
+      });
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true, signal });
-    handleScroll(); // Init instantly
+    applyScrollState(); // 首帧同步落位，避免刷新时闪一下
   }
 
   function setupMobileNav() {
@@ -766,6 +819,10 @@ const isActive = (path: string) => {
     if (!menuBtn || !mobileMenu) return;
 
     const closeMenu = () => {
+      // 这个函数同时挂在 window scroll 上，菜单关着时每次滚动都会进来，
+      // 提前返回免掉四次无意义的属性写入
+      if (menuBtn.getAttribute("aria-expanded") !== "true") return;
+
       menuBtn.setAttribute("aria-expanded", "false");
       menuBtn.setAttribute("aria-label", "Open Menu");
       mobileMenu.classList.remove("is-open");

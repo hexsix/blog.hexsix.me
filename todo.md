@@ -96,8 +96,40 @@ git fetch https://github.com/0xdres/astro-devosfera.git main:refs/remotes/upstre
       之后每张纯 CPU 约 285ms，satori 不会因字体大而反复付解析成本。
       **构建回到 1m02s，网络请求 411 → 3**，四张代表图逐像素比对完全一致。
 
-- [ ] **Header 性能**（借鉴上游 `687b73a`，不移植代码）
-      本地 `Header.astro` 有 13 处 `transition: all`；滚动监听未用 rAF 包裹。
+- [x] **Header 性能**（2026-08-20 完成）（借鉴上游 `687b73a`，未移植代码）
+
+      **滚动监听**：原来每次 scroll 事件都读 `window.scrollY` 并执行 5 次
+      `classList` 增删，而吸顶与否只在越过 15px 阈值那一刻才变。
+      改成 rAF 节流（对齐 `BackToTopButton.astro` 已有的 `ticking` 写法）
+      + 用 `scrolled` 记住上次状态，状态没变就直接 return，完全不碰 DOM。
+      `add/remove` 成对调用换成 `classList.toggle(name, cond)`。
+
+      **`closeMenu` 也挂在 window scroll 上**（用于滚动时收起移动端菜单），
+      菜单关着时每次滚动照样执行 4 次属性写入。加了
+      `aria-expanded !== "true"` 的提前返回。
+
+      **13 处 `transition: all` 全部收窄**为各自状态规则里真正改变的属性。
+      不是机械替换 —— 先把每个选择器的 `:hover` / `:focus-visible` /
+      `.is-open` / `[aria-expanded]` 规则都拉出来看实际改了什么，其中两处有坑：
+      - `.mobile-menu-backdrop`：`pointer-events: none → auto` 是离散属性，
+        混在 `all 0.4s` 里会在 50% 处才翻转 —— 遮罩要等 200ms 才可点击。
+        收窄后排除它，点击立即生效。**这条顺带修了个 bug。**
+      - `.mobile-menu-panel`：`visibility` 必须**保留**在过渡列表里，
+        去掉的话关闭菜单时面板会瞬间消失、没有淡出过程。
+      另外 `outline` 一律排除（`:focus-visible` 会改它），
+      过渡焦点环会延迟无障碍焦点提示。
+
+      验证：产出 CSS 里 12 条声明逐条核对（`visibility` 在、
+      `pointer-events` 不在），Header 作用域内 `transition: all` 零残留；
+      内联脚本产物里 rAF 节流、状态守卫、`closeMenu` 提前返回都在。
+      `astro check` 0 error，`pnpm lint` 全绿。
+
+      未动：`SearchModal.astro` / `global.css` / `typography.css` 里还有
+      5 处 `transition: all`，不属于本条范围。
+
+      注：`Header.astro` 本来就不符合 prettier（改动前 `--check` 即告警），
+      跑 `--write` 会把整段 markup 重新缩进、diff 从 84 行涨到 214 行，
+      所以只保留了本次改动，没有顺带格式化。
 
 ## P3
 
