@@ -16,6 +16,10 @@ type Props = {
   pubDatetime?: Date;
   modDatetime?: Date | null;
   scrollSmooth?: boolean;
+  /** JSON-LD 用的纯标题（不含 " | 站点名" 后缀），缺省时回退到 title */
+  headline?: string;
+  /** 覆盖默认的 JSON-LD（例如画廊页传 ImageGallery） */
+  structuredData?: Record<string, unknown> | null;
 };
 
 const {
@@ -24,29 +28,78 @@ const {
   profile = SITE.profile,
   description = SITE.desc,
   ogImage = SITE.ogImage ? `/${SITE.ogImage}` : "/og.png",
-  canonicalURL = new URL(Astro.url.pathname, Astro.url),
+  canonicalURL: canonicalURLProp,
+  headline,
   pubDatetime,
   modDatetime,
   scrollSmooth = false,
+  structuredData: structuredDataProp,
 } = Astro.props;
+
+// canonical 始终基于 SITE.website 生成（dev 下也不会写出 localhost），
+// 并统一补上尾斜杠，与 @astrojs/sitemap 的输出保持一致。
+const toSiteURL = (path: string) => {
+  const trimmed = path.replace(/\/$/, "");
+  return new URL(trimmed === "" ? "/" : `${trimmed}/`, SITE.website);
+};
+
+const rawPath = Astro.url.pathname.replace(/\/$/, "");
+const canonicalURL = canonicalURLProp ?? toSiteURL(rawPath);
 
 const socialImageURL = new URL(ogImage, Astro.url);
 
-const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  headline: `${title}`,
-  image: `${socialImageURL}`,
-  datePublished: `${pubDatetime?.toISOString()}`,
-  ...(modDatetime && { dateModified: modDatetime.toISOString() }),
-  author: [
-    {
-      "@type": "Person",
-      name: `${author}`,
-      ...(profile && { url: profile }),
-    },
-  ],
+// 只有带发布时间的页面才是文章。其余页面（首页 / 列表页 / 归档 / 搜索）
+// 不能输出 BlogPosting，否则 datePublished 会变成 "undefined"。
+const isArticle = Boolean(pubDatetime);
+
+const person = {
+  "@type": "Person",
+  name: author,
+  ...(profile && { url: profile }),
 };
+
+const defaultStructuredData = isArticle
+  ? {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      mainEntityOfPage: {
+        "@type": "WebPage",
+        "@id": canonicalURL.toString(),
+      },
+      headline: headline ?? title,
+      description,
+      image: socialImageURL.toString(),
+      url: canonicalURL.toString(),
+      datePublished: pubDatetime!.toISOString(),
+      ...(modDatetime && { dateModified: modDatetime.toISOString() }),
+      author: [person],
+      publisher: person,
+    }
+  : rawPath === ""
+    ? {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        name: SITE.title,
+        url: SITE.website,
+        description: SITE.desc,
+        inLanguage: SITE.lang || "en",
+        potentialAction: {
+          "@type": "SearchAction",
+          target: `${SITE.website}search/?q={search_term_string}`,
+          "query-input": "required name=search_term_string",
+        },
+      }
+    : rawPath === "/about"
+      ? {
+          "@context": "https://schema.org",
+          "@type": "ProfilePage",
+          url: canonicalURL.toString(),
+          mainEntity: { ...person, description },
+        }
+      : null;
+
+const structuredData =
+  structuredDataProp !== undefined ? structuredDataProp : defaultStructuredData;
 ---
 
 <!doctype html>
@@ -122,11 +175,15 @@ const structuredData = {
     <meta property="twitter:image" content={socialImageURL} />
 
     <!-- Google JSON-LD Structured data -->
-    <script
-      type="application/ld+json"
-      is:inline
-      set:html={JSON.stringify(structuredData)}
-    />
+    {
+      structuredData && (
+        <script
+          type="application/ld+json"
+          is:inline
+          set:html={JSON.stringify(structuredData)}
+        />
+      )
+    }
 
     <!-- Enable RSS feed auto-discovery  -->
     <!-- https://docs.astro.build/en/recipes/rss/#enabling-rss-feed-auto-discovery -->

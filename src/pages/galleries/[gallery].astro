@@ -61,9 +61,32 @@ const images: GalleryImage[] = Object.entries(allImages)
 const hasCoverInFolder = coverImage
   ? images.some(img => img.src.src === coverImage.src)
   : false;
+
+const galleryStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "ImageGallery",
+  name: title,
+  description,
+  url: new URL(`/galleries/${slug}/`, SITE.website).toString(),
+  datePublished: pubDatetime.toISOString(),
+  ...(tags.length > 0 && { keywords: tags.join(", ") }),
+  ...(images.length > 0 && {
+    associatedMedia: images.map(img => ({
+      "@type": "ImageObject",
+      contentUrl: new URL(img.src.src, SITE.website).toString(),
+      name: img.alt,
+      width: img.src.width,
+      height: img.src.height,
+    })),
+  }),
+};
 ---
 
-<Layout title={`${title} | Galleries | ${SITE.title}`} description={description}>
+<Layout
+  title={`${title} | Galleries | ${SITE.title}`}
+  description={description}
+  structuredData={galleryStructuredData}
+>
   <Header />
   <Breadcrumb />
   <main id="main-content" class="app-layout pb-16">
