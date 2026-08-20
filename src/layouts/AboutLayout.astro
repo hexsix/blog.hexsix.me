@@ -6,12 +6,15 @@ import Breadcrumb from "@/components/Breadcrumb.astro";
 import Layout from "./Layout.astro";
 import { SITE } from "@/config";
 
-type Props = MarkdownLayoutProps<{ title: string }>;
+type Props = MarkdownLayoutProps<{ title: string; description?: string }>;
 
 const { frontmatter } = Astro.props;
+
+const description =
+  frontmatter.description ?? `关于 ${SITE.author}，以及 ${SITE.title} 这个博客。`;
 ---
 
-<Layout title={`关于 | ${SITE.title}`}>
+<Layout title={`关于 | ${SITE.title}`} description={description}>
   <Header />
   <Breadcrumb />
   <main id="main-content" class="app-layout">

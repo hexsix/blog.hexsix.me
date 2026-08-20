@@ -1,6 +1,7 @@
 ---
 layout: ../layouts/AboutLayout.astro
 title: "About"
+description: "喵小六，一只喜欢写代码的猫。关于我，以及「小六家的藏宝图」这个博客。"
 ---
 
 <div class="poem">
