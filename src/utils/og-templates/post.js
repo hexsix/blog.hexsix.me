@@ -3,6 +3,8 @@ import { SITE } from "@/config";
 import loadGoogleFonts from "../loadGoogleFont";
 
 export default async post => {
+  const hostname = new URL(SITE.website).hostname;
+
   return satori(
     {
       type: "div",
@@ -59,7 +61,7 @@ export default async post => {
                     color: "#e2e8f0",
                     letterSpacing: "2px",
                   },
-                  children: SITE.title + ".com",
+                  children: hostname,
                 },
               },
             },
@@ -128,7 +130,7 @@ export default async post => {
                       color: "#cbd5e1",
                     },
                     children: [
-                      "Escrito por ",
+                      "作者 ",
                       {
                         type: "span",
                         props: {
@@ -153,9 +155,7 @@ export default async post => {
       width: 1200,
       height: 630,
       embedFont: true,
-      fonts: await loadGoogleFonts(
-        post.data.title + post.data.author + SITE.title + "Escritopor" + ".com"
-      ),
+      fonts: await loadGoogleFonts(),
     }
   );
 };

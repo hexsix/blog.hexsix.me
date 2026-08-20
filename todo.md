@@ -68,8 +68,33 @@ git fetch https://github.com/0xdres/astro-devosfera.git main:refs/remotes/upstre
       从 `&#34;` 变成 `&quot;`，JSON-LD 156 页全部一致。
       （同日又因 Dependabot 继续升到了 Astro 7，见下方条目。）
 
-- [ ] **每标签 OG 图**（上游 `e5a0e29`）
-      新增 `src/utils/og-templates/tag.js` + `/tags/[tag]/og.png`，纯增量。
+- [x] **每标签 OG 图**（2026-08-20 完成）（上游 `e5a0e29`）
+      新增 `src/utils/og-templates/tag.js` + `/tags/[tag]/og.png.ts`
+      + `generateOgImageForTag()`，标签页 `[...page].astro` 传 `ogImage`。
+      共生成 86 张。`getStaticPaths` 刻意跟 `tags/[tag]/[...page].astro` 对齐
+      （只取 blog 集合、数量走同一条 `getPostsByTag`），不照抄上游那版
+      —— 上游把 galleries 也并进了标签体系，本地没有。
+      副标题带了文章数（`共 N 篇文章 · Bubble`），长标签名按字数退字号
+      （>10 字 56px / >6 字 72px / 否则 96px），最长的
+      `rocketmq-client-cpp` 实测不溢出。
+
+      **动手前发现已有的 OG 图全是坏的**，一并修了（这三条不在原计划里）：
+      1. **中文全渲染成豆腐块**。`loadGoogleFont.ts` 加载的是 Noto Sans，
+         它不含 CJK 字形，51 张文章图 + 站点图的中文标题、作者名、站点描述
+         全是 □。换成 Noto Sans SC（同时覆盖拉丁 / 简中 / 日文假名）。
+      2. `post.js` 里徽标写的是 `SITE.title + ".com"` → 渲染成 `Bubble.com`，
+         而真实域名是 blog.hexsix.me。改成跟 `site.js` 一样取 `hostname`。
+      3. `post.js` 的 `Escrito por`（西语"作者"）漏翻，改成「作者」。
+
+- [x] **OG 字体加载改为整份缓存**（2026-08-20，做上一条时顺带）
+      原做法给 Google Fonts 传 `&text=` 按需子集化，每张图 3 次往返
+      （1 次 CSS + 2 个字重文件）。加上标签图后是 137 张 × 3 = 411 次请求，
+      构建从 1m02s 涨到 3m06s，且任何一次失败都会让构建挂掉。
+      先试过"一次 CSS 拿两个字重"，只降到 3m06s —— 实测瓶颈在字体文件本身
+      （单张隔离测量：CSS 1.7s + 字体 1.9s）。
+      改成整份 SC 字体只下一次、模块级缓存复用：一次 10.3s / 21MB，
+      之后每张纯 CPU 约 285ms，satori 不会因字体大而反复付解析成本。
+      **构建回到 1m02s，网络请求 411 → 3**，四张代表图逐像素比对完全一致。
 
 - [ ] **Header 性能**（借鉴上游 `687b73a`，不移植代码）
       本地 `Header.astro` 有 13 处 `transition: all`；滚动监听未用 rAF 包裹。
@@ -123,6 +148,17 @@ git fetch https://github.com/0xdres/astro-devosfera.git main:refs/remotes/upstre
       自检两个已知样例后全库只剩这两处。
 
 - [ ] `cedfcbe` — 全局音频 store + 顶栏迷你播放器（`config.ts` 里 `introAudio.enabled: false`，暂无意义）
+
+- [ ] **站点默认 OG 图仍是上游的宣传拼图**（待你定夺）
+      `config.ts` 的 `ogImage: "devosfera-og.webp"` 指向
+      `public/devosfera-og.webp` —— 上游的产品截图拼贴，画面里写着
+      "Devosfera"、西班牙语文案和 AstroPaper 的演示文章。
+      首页、归档、关于、画廊等所有非文章非标签页分享出去都是这张。
+      本站自己的 `/og.png`（写着 Bubble / 小六家的藏宝图 / blog.hexsix.me）
+      构建时已经生成，但因为 `SITE.ogImage` 有值而从未被引用。
+      把 `ogImage` 置空即可切过去。另：`Layout.astro` 里
+      `og:image:width/height` 硬编码 1200×630，而那张 webp 是 2560×1440，
+      现在这组尺寸是错的；切到 `/og.png` 后正好对上。
 
 ## 已确认不做
 

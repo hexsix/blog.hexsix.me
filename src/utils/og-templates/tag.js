@@ -2,9 +2,17 @@ import satori from "satori";
 import { SITE } from "@/config";
 import loadGoogleFonts from "../loadGoogleFont";
 
-export default async () => {
-  // Obtenemos el hostname limpio (ej: midominio.com)
+/**
+ * 为标签页生成 OG 图。
+ * @param {string} tagName - 标签显示名（如「日常」）
+ * @param {number} postCount - 该标签下的文章数
+ */
+export default async (tagName, postCount) => {
   const hostname = new URL(SITE.website).hostname;
+  const subtitle = `共 ${postCount} 篇文章 · ${SITE.title}`;
+
+  // 中文标签比拉丁标签占宽得多，长名字要退字号，否则会溢出 1200px 画布
+  const tagFontSize = tagName.length > 10 ? 56 : tagName.length > 6 ? 72 : 96;
 
   return satori(
     {
@@ -17,50 +25,50 @@ export default async () => {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          backgroundColor: "#0f172a", // Fondo oscuro (Slate 900)
+          backgroundColor: "#0f172a",
           backgroundImage:
-            "radial-gradient(circle at 25px 25px, #1e293b 2%, transparent 0%), radial-gradient(circle at 75px 75px, #1e293b 2%, transparent 0%)", // Patrón sutil de puntos (opcional, si no te gusta bórralo)
+            "radial-gradient(circle at 25px 25px, #1e293b 2%, transparent 0%), radial-gradient(circle at 75px 75px, #1e293b 2%, transparent 0%)",
           backgroundSize: "100px 100px",
           color: "white",
           position: "relative",
         },
         children: [
-          // 1. Gradiente Decorativo Superior Derecho (Púrpura)
+          // 右上装饰光晕
           {
             type: "div",
             props: {
               style: {
                 position: "absolute",
-                top: "-150px",
-                right: "-50px",
-                width: "600px",
-                height: "600px",
-                background: "linear-gradient(140deg, #a855f7, #ec4899)", // Purple a Pink
-                filter: "blur(120px)",
-                opacity: 0.3,
+                top: "-120px",
+                right: "-80px",
+                width: "550px",
+                height: "550px",
+                background: "linear-gradient(140deg, #a855f7, #6366f1)",
+                filter: "blur(110px)",
+                opacity: 0.35,
                 borderRadius: "100%",
               },
             },
           },
-          // 2. Gradiente Decorativo Inferior Izquierdo (Indigo)
+          // 左下装饰光晕
           {
             type: "div",
             props: {
               style: {
                 position: "absolute",
-                bottom: "-150px",
-                left: "-50px",
-                width: "500px",
-                height: "500px",
-                background: "linear-gradient(140deg, #3b82f6, #6366f1)", // Blue a Indigo
-                filter: "blur(120px)",
-                opacity: 0.3,
+                bottom: "-120px",
+                left: "-80px",
+                width: "450px",
+                height: "450px",
+                background: "linear-gradient(140deg, #3b82f6, #6366f1)",
+                filter: "blur(110px)",
+                opacity: 0.25,
                 borderRadius: "100%",
               },
             },
           },
 
-          // 3. Contenedor Central
+          // 中央内容
           {
             type: "div",
             props: {
@@ -74,57 +82,79 @@ export default async () => {
                 width: "90%",
               },
               children: [
-                // Título del Sitio (HERO)
+                // 「#标签」主视觉
                 {
-                  type: "h1",
+                  type: "div",
                   props: {
                     style: {
-                      fontSize: 100, // Muy grande
-                      fontWeight: 900,
-                      letterSpacing: "-2px",
-                      color: "white",
-                      margin: "0 0 20px 0",
-                      lineHeight: 1,
-                      textShadow: "0 4px 20px rgba(0,0,0,0.5)",
+                      display: "flex",
+                      alignItems: "baseline",
                     },
-                    children: SITE.title,
+                    children: [
+                      {
+                        type: "span",
+                        props: {
+                          style: {
+                            fontSize: tagFontSize * 0.8,
+                            fontWeight: 700,
+                            color: "#818cf8",
+                            opacity: 0.75,
+                            lineHeight: 1,
+                            marginRight: "10px",
+                          },
+                          children: "#",
+                        },
+                      },
+                      {
+                        type: "span",
+                        props: {
+                          style: {
+                            fontSize: tagFontSize,
+                            fontWeight: 700,
+                            color: "white",
+                            lineHeight: 1.2,
+                            textShadow: "0 4px 20px rgba(0,0,0,0.5)",
+                          },
+                          children: tagName,
+                        },
+                      },
+                    ],
                   },
                 },
 
-                // Línea separadora pequeña
+                // 分隔线
                 {
                   type: "div",
                   props: {
                     style: {
                       width: "80px",
                       height: "6px",
-                      backgroundColor: "#818cf8", // Acento Indigo
+                      backgroundColor: "#818cf8",
                       borderRadius: "4px",
-                      marginBottom: "30px",
+                      margin: "30px 0",
                     },
                   },
                 },
 
-                // Descripción del sitio
+                // 副标题
                 {
                   type: "p",
                   props: {
                     style: {
-                      fontSize: 36,
-                      color: "#cbd5e1", // Slate 300 (gris claro)
-                      maxWidth: "80%", // Para que no se estire demasiado a los lados
+                      fontSize: 32,
+                      color: "#cbd5e1",
                       margin: 0,
                       lineHeight: 1.4,
                       fontWeight: 400,
                     },
-                    children: SITE.desc,
+                    children: subtitle,
                   },
                 },
               ],
             },
           },
 
-          // 4. Footer: URL del sitio (Pill design)
+          // 底部域名胶囊
           {
             type: "div",
             props: {
@@ -144,7 +174,7 @@ export default async () => {
                 props: {
                   style: {
                     fontSize: 24,
-                    color: "#94a3b8", // Texto sutil
+                    color: "#94a3b8",
                     fontWeight: 600,
                     letterSpacing: "1px",
                   },
