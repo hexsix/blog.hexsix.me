@@ -1,4 +1,5 @@
-import { defineCollection, z } from "astro:content";
+import { defineCollection } from "astro:content";
+import { z } from "astro/zod";
 import { glob } from "astro/loaders";
 import { SITE } from "@/config";
 
@@ -25,7 +26,7 @@ const blog = defineCollection({
       youtube: z.string().optional(),
       bilibili: z.string().optional(),
       vimeo: z.string().optional(),
-      link: z.string().url().optional(),
+      link: z.url().optional(),
       icon: z.string().optional(),
       showDate: z.boolean().optional(),
     }),

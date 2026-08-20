@@ -1,5 +1,6 @@
 import { defineConfig, envField, fontProviders } from "astro/config";
 import mdx from "@astrojs/mdx";
+import { unified } from "@astrojs/markdown-remark";
 import tailwindcss from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
 import remarkToc from "remark-toc";
@@ -24,7 +25,12 @@ export default defineConfig({
     }),
   ],
   markdown: {
-    remarkPlugins: [remarkToc, [remarkCollapse, { test: "Table of contents" }]],
+    processor: unified({
+      remarkPlugins: [
+        remarkToc,
+        [remarkCollapse, { test: "Table of contents" }],
+      ],
+    }),
     shikiConfig: {
       // For more themes, visit https://shiki.style/themes
       themes: { light: "min-light", dark: "github-dark-default" },
@@ -39,10 +45,6 @@ export default defineConfig({
     },
   },
   vite: {
-    // eslint-disable-next-line
-    // @ts-ignore
-    // This will be fixed in Astro 6 with Vite 7 support
-    // See: https://github.com/withastro/astro/issues/14030
     plugins: [tailwindcss()],
     optimizeDeps: {
       exclude: ["@resvg/resvg-js"],
@@ -61,54 +63,58 @@ export default defineConfig({
       }),
     },
   },
-  experimental: {
-    preserveScriptOrder: true,
-    fonts: [
-      {
-        name: "Wotfard",
-        cssVariable: "--font-wotfard",
-        fallbacks: ["sans-serif"],
-        provider: fontProviders.local(),
-        options: {
-          variants: [
-            {
-              src: ["./src/assets/fonts/wotfard-regular-webfont.woff2"],
-            },
-          ],
-        },
+  fonts: [
+    {
+      name: "Wotfard",
+      cssVariable: "--font-wotfard",
+      fallbacks: ["sans-serif"],
+      provider: fontProviders.local(),
+      options: {
+        variants: [
+          {
+            src: ["./src/assets/fonts/wotfard.woff2"],
+          },
+        ],
       },
-      {
-        name: "Sriracha",
-        cssVariable: "--font-sriracha",
-        fallbacks: ["cursive"],
-        provider: fontProviders.google(),
+    },
+    {
+      name: "Sriracha",
+      cssVariable: "--font-sriracha",
+      fallbacks: ["cursive"],
+      provider: fontProviders.local(),
+      options: {
+        variants: [
+          {
+            src: ["./src/assets/fonts/sriracha.woff2"],
+          },
+        ],
       },
-      {
-        name: "Fira Code",
-        cssVariable: "--font-firacode",
-        fallbacks: ["monospace"],
-        provider: fontProviders.local(),
-        options: {
-          variants: [
-            {
-              src: ["./src/assets/fonts/firacode.woff2"],
-            },
-          ],
-        },
+    },
+    {
+      name: "Fira Code",
+      cssVariable: "--font-firacode",
+      fallbacks: ["monospace"],
+      provider: fontProviders.local(),
+      options: {
+        variants: [
+          {
+            src: ["./src/assets/fonts/firacode.woff2"],
+          },
+        ],
       },
-      {
-        name: "Cascadia Code",
-        cssVariable: "--font-cascadia-code",
-        fallbacks: ["monospace"],
-        provider: fontProviders.local(),
-        options: {
-          variants: [
-            {
-              src: ["./src/assets/fonts/cascadia-code.woff2"],
-            },
-          ],
-        },
+    },
+    {
+      name: "Cascadia Code",
+      cssVariable: "--font-cascadia-code",
+      fallbacks: ["monospace"],
+      provider: fontProviders.local(),
+      options: {
+        variants: [
+          {
+            src: ["./src/assets/fonts/cascadia-code.woff2"],
+          },
+        ],
       },
-    ],
-  },
+    },
+  ],
 });

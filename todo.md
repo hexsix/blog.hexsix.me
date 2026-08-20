@@ -42,12 +42,30 @@ git fetch https://github.com/0xdres/astro-devosfera.git main:refs/remotes/upstre
 
 ## P2
 
-- [ ] **升级 Astro 6**（上游 `6895f6a`）
-      本地 5.17。`experimental.fonts` → 顶层 `fonts:`，
-      干掉 `astro.config.ts:44` 的 `@ts-ignore`，
-      `content.config.ts` 的 `z` 改从 `astro/zod` 导入。
-      顺带加 `prefetch: { prefetchAll: true, defaultStrategy: "hover" }`，
-      Sriracha 从 `fontProviders.google()` 换成本地 woff2。
+- [x] **升级 Astro 6**（2026-08-20 完成）（上游 `6895f6a`）
+      5.17.2 → 6.4.8，mdx 4 → 5，rss/sitemap/check 跟着小升。
+      `experimental.fonts` → 顶层 `fonts:`；`experimental.preserveScriptOrder`
+      在 6 里已是默认行为，直接删；`@ts-ignore`（Vite 7）删掉；
+      `z` 改从 `astro/zod` 导入，顺手把弃用的 `z.string().url()` 换成 `z.url()`。
+      Sriracha 换成本地 woff2（取上游那份），字体文件统一命名为 `wotfard.woff2`。
+      升级过程中另外冒出来的三件事：
+      1. `@shikijs/transformers` 3.x 与 astro 6 内置的 `@shikijs/types` 4.x
+         类型不兼容，`astro check` 报 3 个 error，已升到 ^4.4.3。
+      2. astro 6 弃用 `markdown.remarkPlugins`，改为
+         `markdown.processor: unified({ remarkPlugins })`，
+         `unified` 需要从 `@astrojs/markdown-remark` 直接导入 —— 已加为直接依赖。
+      3. `<Font preload={[{ subset: "latin", ... }]} />` 这个过滤器只对
+         Google provider 有效：本地字体没有 subset 元信息，
+         而 `filter-preloads.js` 里 `p.subset !== subset` 不判 undefined，
+         所以本地字体一个都匹配不上。升级前只有 Sriracha（Google）被 preload，
+         Sriracha 改本地后 preload 归零。已改成正文字体 Wotfard 用 `preload`，
+         其余三个（Sriracha / Fira Code / Cascadia Code）不 preload。
+      **prefetch 不用配**：ClientRouter 内部就是以
+      `{ prefetchAll: true }` + `defaultStrategy: "hover"` 初始化的
+      （见 dist 里 ClientRouter 产物中的 `Ee({prefetchAll:!0})`），显式写等于重复。
+      验证：新旧两次构建都是 156 页，逐页比对可见文本 0 处差异，
+      head 里的 meta/link 除 generator 版本号外只有一页的 `"` 实体
+      从 `&#34;` 变成 `&quot;`，JSON-LD 156 页全部一致。
 
 - [ ] **每标签 OG 图**（上游 `e5a0e29`）
       新增 `src/utils/og-templates/tag.js` + `/tags/[tag]/og.png`，纯增量。
@@ -71,6 +89,18 @@ git fetch https://github.com/0xdres/astro-devosfera.git main:refs/remotes/upstre
       注意：改完配置后光跑 `pnpm install` 不会生效 —— 依赖图没变时 pnpm 走 no-op，
       不会重新链接包也就不会重跑 build script。需要 `pnpm rebuild esbuild sharp`
       或删掉 `node_modules` 重装才能验证。
+- [ ] **再升 Astro 7**（上游还在 6，这条是本地自己的）
+      写这条时 npm 上 astro 已到 7.2.4。6 → 7 要顺带过一遍：
+      `@astrojs/mdx` 7.x 多了 `@astrojs/markdown-satteri` 这个 peer；
+      `markdown.remarkPlugins` 在 6 里只是弃用警告，7 里大概率直接移除
+      （已经提前迁到 `processor: unified({...})`，这块不欠账）。
+
+- [ ] **eslint peer 不匹配**（历史遗留，非本次引入）
+      `eslint@10` vs `typescript-eslint@8.55` 要求的 `^8.57 || ^9`，
+      每次 `pnpm install` 都会 WARN。`pnpm lint` 目前有 3 个 error
+      （`Layout.astro` 的 parsing error 是 eslint-plugin-astro 解析限制，
+      另两个在 `posts/[...page].astro`），升级前后数量一致。
+
 - [ ] `cedfcbe` — 全局音频 store + 顶栏迷你播放器（`config.ts` 里 `introAudio.enabled: false`，暂无意义）
 
 ## 已确认不做
