@@ -32,7 +32,7 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
       <div class="relative z-10">
         <!-- Terminal prompt badge -->
         <div
-          class="mb-3 inline-flex items-center gap-2 rounded-full border border-border/40 bg-muted/20 px-3.5 py-1.5 font-cartograph text-xs sm:text-sm"
+          class="mb-3 inline-flex items-center gap-2 rounded-full border border-border/40 bg-muted/20 px-3.5 py-1.5 font-firacode text-xs sm:text-sm"
         >
           <span class="relative flex h-2 w-2">
             <span
@@ -147,7 +147,7 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
               最新
             </h2>
             <div class="h-px flex-1 bg-border/20" />
-            <span class="font-cartograph text-xs text-accent/40 select-none">
+            <span class="font-firacode text-xs text-accent/40 select-none">
               [{recentPosts.slice(0, SITE.postPerIndex).length}/
               {recentPosts.length}]
             </span>

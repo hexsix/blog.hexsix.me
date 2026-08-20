@@ -84,14 +84,14 @@ export default defineConfig({
         provider: fontProviders.google(),
       },
       {
-        name: "Cartograph CF",
-        cssVariable: "--font-cartograph",
+        name: "Fira Code",
+        cssVariable: "--font-firacode",
         fallbacks: ["monospace"],
         provider: fontProviders.local(),
         options: {
           variants: [
             {
-              src: ["./src/assets/fonts/cartograph-cf-regular-webfont.woff2"],
+              src: ["./src/assets/fonts/firacode.woff2"],
             },
           ],
         },

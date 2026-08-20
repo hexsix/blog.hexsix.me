@@ -25,7 +25,7 @@ const emoji = icon ? (iconMap[icon] ?? "📡") : "📡";
   <!-- 顶部标题栏 -->
   <div class="flex items-center gap-2.5 border-b border-accent/20 bg-accent/10 px-4 py-2.5">
     <span class="text-base" aria-hidden="true">{emoji}</span>
-    <span class="font-cartograph text-xs font-semibold tracking-widest text-accent uppercase">
+    <span class="font-firacode text-xs font-semibold tracking-widest text-accent uppercase">
       站点动态
     </span>
     <div class="ml-auto flex items-center gap-1">
@@ -37,7 +37,7 @@ const emoji = icon ? (iconMap[icon] ?? "📡") : "📡";
 
   <!-- 内容区域 -->
   <div
-    class="px-5 py-4 text-base leading-relaxed text-foreground/80 [&_code]:rounded [&_code]:bg-accent/10 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:font-cartograph [&_code]:text-sm [&_code]:text-accent [&_p]:my-0"
+    class="px-5 py-4 text-base leading-relaxed text-foreground/80 [&_code]:rounded [&_code]:bg-accent/10 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:font-firacode [&_code]:text-sm [&_code]:text-accent [&_p]:my-0"
   >
     <slot />
   </div>
