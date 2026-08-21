@@ -1,10 +1,12 @@
 ---
 import type { MarkdownLayoutProps } from "astro";
+import { Image } from "astro:assets";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import Breadcrumb from "@/components/Breadcrumb.astro";
 import Layout from "./Layout.astro";
 import { SITE } from "@/config";
+import avatarImage from "@/assets/images/avatar.webp";
 
 type Props = MarkdownLayoutProps<{ title: string; description?: string }>;
 
@@ -28,11 +30,15 @@ const description =
         <div class="avatar-ring">
           <div class="avatar-glow"></div>
           <div class="avatar-inner">
-            <img
-            src="https://images.rinshankaiho.fun/1/2022/06/24/goldenglow_220301.jpg"
-            alt="喵小六"
-            class="avatar-img"
-          />
+            <Image
+              src={avatarImage}
+              alt="喵小六"
+              class="avatar-img"
+              width={110}
+              height={110}
+              densities={[1, 2]}
+              loading="eager"
+            />
           </div>
         </div>
         <h1 class="hero-title">
